@@ -1,6 +1,6 @@
-<ons-page id="learn_flashcard_html" 
-          class="learn-flashcard-page" 
-          ng-device-backbutton="main_back()" 
+<ons-page id="learn_flashcard_html"
+          class="learn-flashcard-page"
+          ng-device-backbutton="main_back()"
           ng-init="_learn_flashcard = ctl_learn_flashcard.var.learn_flashcard">
     <ons-toolbar>
         <div class="left">
@@ -16,7 +16,7 @@
         </div>
 
         <div class="right" >
-            <span ng-init="_target_data = ctl_target.status.learn_flashcard" 
+            <span ng-init="_target_data = ctl_target.status.learn_flashcard"
                   ng-class="{'target-incompleted': (_target_data.done < _target_data.target), 'target-completed': (ctl_target.is_all_finish('learn_flashcard'))}"
                   ng-click="ctl_target.enter_for_view()"
                   ng-show="!CONFIG.control_group_version">
@@ -26,7 +26,7 @@
                            ng-show="ctl_target.is_all_finish('learn_flashcard')"></ons-icon>
             </span>
 
-            <ons-icon icon='ion-android-more-vertical' fixed-width="true" class="more-button" 
+            <ons-icon icon='ion-android-more-vertical' fixed-width="true" class="more-button"
                       ng-click="ctl_learn_flashcard.open_more_menu($event)"></ons-icon>
         </div>
     </ons-toolbar>
@@ -34,9 +34,9 @@
     <div class="flashcard">
 
         <!-- 英文的部分 -->
-        <ons-row class="side q "  ng-click="ctl_activity.speak(ctl_learn_flashcard.var.learn_flashcard.q, 'en')"> 
+        <ons-row class="side q "  ng-click="ctl_activity.speak(ctl_learn_flashcard.var.learn_flashcard.q, 'en')">
 
-            <ons-col align="top" >	
+            <ons-col align="top" >
                 <ons-icon icon="ion-radio-waves" fixed-width="true" class="hide speak" ng-show="CONFIG.enable_speak === true"></ons-icon>
 
                 {{ ctl_learn_flashcard.var.learn_flashcard.q}}
@@ -45,7 +45,7 @@
             </ons-col>
 
         </ons-row>
-        			
+
         <!-- 中文的部分 -->
         <ons-row class="side a bg-info" ng-click="ctl_activity.speak(ctl_learn_flashcard.var.learn_flashcard.a, 'zh')">
             <ons-icon icon="ion-radio-waves" fixed-width="true" class="hide speak" ng-show="CONFIG.enable_speak === true"></ons-icon>
@@ -77,7 +77,7 @@
                     <div>
                         字根字典 <!-- @TODO 語系 -->
                     </div>
-                </ons-button>	
+                </ons-button>
             </ons-col>
             <ons-col  width="20%" ng-click="ctl_activity.search_image(ctl_learn_flashcard.var.learn_flashcard.q)">
                 <ons-button>
@@ -85,22 +85,22 @@
                     <div>
                         圖片搜尋 <!-- @TODO 語系 -->
                     </div>
-                </ons-button>	
-            </ons-col>			
-        </ons-row>	
+                </ons-button>
+            </ons-col>
+        </ons-row>
     </div>
 
-	
-	
+
+
 
     <div class="note" ng-click="ctl_note.enter()">
         <ons-icon icon="ion-edit" fixed-width="true" class="compose"></ons-icon>
 
-        <span class="your-note pre" 
+        <span class="your-note pre"
               ng-show="(ctl_learn_flashcard.var.learn_flashcard.note !== null && ctl_learn_flashcard.var.learn_flashcard.note !== undefined)">
             {{ ctl_learn_flashcard.var.learn_flashcard.note }}
         </span>
-        <span class="note-empty" 
+        <span class="note-empty"
               ng-show="(ctl_learn_flashcard.var.learn_flashcard.note === null || ctl_learn_flashcard.var.learn_flashcard.note === undefined)">
             {{ 'LEARN_FLASHCARD_NOTE_EMPTY' | translate }}
         </span>
@@ -123,13 +123,13 @@
     -->
 
     <ons-tabbar>
-        <ons-tab label="{{ 'LEARN_FLASHCARD_GO_PREV' | translate }}" icon="ion-arrow-up-b" 
-                 ng-click="ctl_learn_flashcard.prev();" 
+        <ons-tab label="{{ 'LEARN_FLASHCARD_GO_PREV' | translate }}" icon="ion-arrow-up-b"
+                 ng-click="ctl_learn_flashcard.prev();"
                  ng-show="(ctl_learn_flashcard.status.history_index > 0)"></ons-tab>
-        <ons-tab label="{{ 'LEARN_FLASHCARD_GO_TEST' | translate }}" icon="ion-ios-compose" 
+        <ons-tab label="{{ 'LEARN_FLASHCARD_GO_TEST' | translate }}" icon="ion-ios-compose"
                  ng-show="(ctl_activity.is_learn_enough() === true)"
                  ng-click="ctl_test_select.enter(true);" ></ons-tab>
-        <ons-tab label="{{ 'LEARN_FLASHCARD_GO_NEXT' | translate }}" icon="ion-arrow-down-b" 
+        <ons-tab label="{{ 'LEARN_FLASHCARD_GO_NEXT' | translate }}" icon="ion-arrow-down-b"
                  ng-click="ctl_learn_flashcard.next();"></ons-tab>
     </ons-tabbar>
 

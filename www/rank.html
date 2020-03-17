@@ -1,0 +1,85 @@
+<ons-page id="rank_html" 
+          class="rank-page"
+          ng-device-backbutton="main_back()" 
+          ng-init="">
+
+    
+    <ons-toolbar>
+
+        <div class="left">
+            <ons-toolbar-button ng-click="app.menu.open()" class="menu-open">
+                <span class="toolbar-button--quiet navigation-bar__line-height" >
+                    <ons-icon icon="ion-navicon" fixed-width="true"></ons-icon>
+                </span>
+            </ons-toolbar-button>
+        </div>
+
+        <div class="center">
+            排行
+        </div>
+
+        
+    </ons-toolbar>
+	
+	<ons-tabbar>
+        <ons-tab label=" 昨日得分"  
+                 ng-click="ctl_rank.enter();">
+                </ons-tab>
+                 
+        <ons-tab label="累積得分"  
+                 ng-click="ctl_rank.total();">
+                
+	</ons-tab>
+                 
+    </ons-tabbar>
+    <div class="right" id="scoreall">
+             
+             </div>
+	
+	<!--ons-template id="score.html">
+	
+		
+		<p style="text-align: center;">
+		
+		  <div class="right"
+             ng-show="!CONFIG.control_group_version">
+			 昨日得分:{{(ctl_rank.var.yesterday_target_data.learn_flashcard.done/ctl_rank.var.yesterday_target_data.learn_flashcard.target*0.2+ctl_rank.var.yesterday_target_data.test_select.done/ctl_rank.var.yesterday_target_data.learn_flashcard.target*0.5)*100}}
+			<br>
+            單字學習完成率:{{ctl_rank.var.yesterday_target_data.learn_flashcard.done/ctl_rank.var.yesterday_target_data.learn_flashcard.target}}
+            <br>        
+			單字筆記完成率:{{ctl_rank.var.yesterday_target_data.take_note.done/ctl_rank.var.yesterday_target_data.learn_flashcard.target}}
+            <br>        
+			單字測驗完成率:{{ctl_rank.var.yesterday_target_data.test_select.done/ctl_rank.var.yesterday_target_data.learn_flashcard.target}}
+            <br>
+            設定目標:{{ ctl_rank.var.yesterday_target_data.learn_flashcard.target }}
+            <br>
+            完成學習單字:{{ ctl_rank.var.yesterday_target_data.learn_flashcard.done }}
+            <br>
+            完成筆記數:{{ ctl_rank.var.yesterday_target_data.take_note.done }}
+            <br>
+            完成測驗量:{{ ctl_rank.var.yesterday_target_data.test_select.done }}
+            <br>
+        </div>
+		</p>
+		
+		
+	</ons-template>
+	
+	<ons-template id="score_total.html">
+		
+		<p style="text-align: center;">
+		  <div class="right"
+             ng-show="!CONFIG.control_group_version">
+			name:{{ctl_rank.var.totalscore.uuid}}
+			<br>
+			累積得分:{{ctl_rank.var.totalscore.totalscore}}
+ 			</div>
+		</p>
+		
+		
+	</ons-template-->
+
+
+  
+</ons-page>
+

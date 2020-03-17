@@ -6,7 +6,6 @@ var _app_ready = function ($scope) {
 
     var _enter = function () {
         $scope.set_swipeable(false);
-
         //$.console_trace("$scope.ctl_flashcard.setup(function () {");
         $scope.ctl_flashcard.setup(function () {
             //$.console_trace("準備好了嗎？");
@@ -19,9 +18,11 @@ var _app_ready = function ($scope) {
                 if ($scope.ctl_profile.check_version_match()) {
                     $scope.db_log.sync_init();
                     $scope.ctl_target.enter_from_profile(false);
+
                 }
                 else {
                     $scope.ctl_profile.reset_app();
+
                 }
             }
         });

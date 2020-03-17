@@ -42,6 +42,11 @@
             <ons-icon icon="ion-ios-pie" size="20px"></ons-icon>
             設定目標 <!-- @TODO 語系 -->
         </ons-list-item>
+
+        <ons-list-item modifier="chevron" ng-click="app.navi.pushPage('logincheck.html')" ng-show="!CONFIG.control_group_version">
+            <ons-icon icon="ion-ios-pie" size="20px"></ons-icon>
+            檢視連續學習狀況 <!-- @TODO 語系 -->
+        </ons-list-item>
         
         <ons-list-item modifier="chevron" ng-click="ctl_setting.share_app()" style="display:none;">
             <ons-icon icon="ion-android-share-alt" size="20px"></ons-icon>

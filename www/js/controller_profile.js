@@ -24,7 +24,7 @@ var controller_profile = function ($scope) {
     _ctl.status = _status;
     
     var _status_key = "profile";
-    
+
     var _init_status = function () {
         return $scope.db_status.add_listener(
                 _status_key,
@@ -109,9 +109,12 @@ var controller_profile = function ($scope) {
         }
         return _status.uuid;
     };
-    
+    /*原版
     _ctl.submit = function () {
-        _ctl.setup_uuid();
+        _ctl.checkname();
+        
+        //_ctl.setup_uuid();
+        
         $scope.ctl_platform.recordPlatform();
         $scope.ctl_platform.recordGroup();
         _status.group_name = $scope.CONFIG.group_name;
@@ -123,10 +126,78 @@ var controller_profile = function ($scope) {
         $scope.log(_log_file, "submit()", _status);
         
         _ctl.change_user_name(_status.name);
-        
+        console.log(_status.uuid);
         $scope.ctl_target.enter_from_profile();
+        
         return this;
+        
     };
+    */
+   
+   //
+   //知瑋版本
+    _ctl.submit = function () {
+            console.log(_status.uuid);
+            target_help_modal.show();
+            let _data = {
+                name : _status.name
+            }
+            $.get($scope.CONFIG.server_url + 'model/checkloginname.php' + '?name=' + _status.name, function (result) {
+                if(result.length == 0){
+                    //$scope.DB.insert(_log_db, _insert_data, _callback);
+                    _ctl.setup_uuid();
+                    $scope.ctl_platform.recordPlatform();
+                    $scope.ctl_platform.recordGroup();
+                    _status.group_name = $scope.CONFIG.group_name;
+                    _status.version = $scope.CONFIG.version;
+                    
+                    _ctl.save();
+                    
+                    // 設定log
+                    $scope.log(_log_file, "submit()", _status);
+                    
+                    _ctl.change_user_name(_status.name);
+                    target_help_modal.hide();
+                    $scope.ctl_target.enter_from_profile();
+
+                    return this;
+                }else{
+                    //執行匯入DB
+                    console.log(result);
+                    let _uuid = result[0]['uuid'];
+                    _status.uuid = _uuid;
+                    //$scope.db_log.sync_pull(result);
+                    
+                    for(var i in result){
+                        var _insert_data = {
+                            'timestamp': parseInt(result[i]['timestamp']),
+                            'file_name': result[i]['file_name'],
+                            'function_name': result[i]['function_name'],
+                            'qualifier': result[i]['qualifier'],
+                            'data': result[i]['data']
+                        };
+                        
+                        //alert(JSON.stringify(_insert_data));
+                        $scope.DB.insert('log', _insert_data);
+                    }
+
+                    $scope.ctl_platform.recordPlatform();
+                    $scope.ctl_platform.recordGroup();
+                    _status.group_name = $scope.CONFIG.group_name;
+                    _status.version = $scope.CONFIG.version;
+                    _ctl.save();
+                    // 設定log
+                    $scope.log(_log_file, "submit()", _status);                    
+                    _ctl.change_user_name(_status.name);
+                    $scope.ctl_target.enter_from_profile();                    
+                    return this;
+                    
+                }
+            });
+
+
+    };
+
     
     _ctl.change_user_name = function (_name) {
         if (_name === undefined) {

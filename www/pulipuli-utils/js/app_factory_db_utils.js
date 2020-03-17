@@ -1,11 +1,11 @@
 var _app_factory_db_utils = function ($scope) {
     $scope.DB = {};
     var _db;
-    
+
     var _db_checked = false;
 
     var _init_db = function () {
-        
+
         //$.console_trace("var _init_db = function () {");
         //throw "var _init_db = function () {";
         //return;
@@ -13,7 +13,7 @@ var _app_factory_db_utils = function ($scope) {
         if (_db_checked === true) {
             return;
         }
-        
+
         if (_db === undefined) {
             try {
                 _db = openDatabase('open_database', '1.0', 'Pulipuli Open Database', 2 * 1024 * 1024 );
@@ -26,7 +26,7 @@ var _app_factory_db_utils = function ($scope) {
                 alert("資料庫初始化失敗，不能使用");
             }
             //alert(typeof(_db.transaction));
-            
+
             //console.log(typeof(_db.transaction));
         }
         return _db;
@@ -79,7 +79,7 @@ var _app_factory_db_utils = function ($scope) {
                             }
                             _data.push(_d);
                         }
-                        
+
                         _success_callback(_data);
                     }
                 }, function (_tx, _error) {
@@ -98,13 +98,13 @@ var _app_factory_db_utils = function ($scope) {
     var _init_tables = function (_callback) {
         //$.console_trace("_init_tables()");
         //return;
-        
+
         if (_tables_inited === false) {
             //$.console_trace("before _init_db();");
             _init_db();
             //$.console_trace("_init_db();");
             var _keys = $.array_keys(_register_data);
-            
+
             //$.console_trace("_init_tables", _keys);
             var _loop = function (_i) {
                 if (_i < _keys.length) {
@@ -152,7 +152,7 @@ var _app_factory_db_utils = function ($scope) {
         //$scope.DB.exec(_sql, _success_callback);
         //$.console_trace("create table_name", _table_name);
         _init_db();
-        
+
         //$.console_trace("before _db.transaction(function (_tx) {");
         _db.transaction(function (_tx) {
             //alert("table 1");
@@ -161,7 +161,7 @@ var _app_factory_db_utils = function ($scope) {
                 //alert(_error);
                 $scope.DB.error_handler(_tx, _error, _sql);
             };
-            
+
             _tx.executeSql(_sql, [], _success_callback, _error_handler);
         });
         return this;
@@ -251,12 +251,12 @@ var _app_factory_db_utils = function ($scope) {
     };
 
     /**
-     * 
+     *
      * @param {type} _table
      * @param {type} _data
      * @param {type} _success_callback
      * @returns {_app_factory_db_utils.$scope.DB}
-     * 20160316 websql 完美 
+     * 20160316 websql 完美
      */
     $scope.DB.insert = function (_table, _data, _success_callback) {
         //$.console_trace("insert()", _data);
@@ -292,7 +292,7 @@ var _app_factory_db_utils = function ($scope) {
         var _data_array = [];
         for (var _field in _data) {
             var _value = _data[_field];
-            
+
             if (_field_sql !== "") {
                 _field_sql = _field_sql + ", ";
                 _value_sql = _value_sql + ", ";
@@ -301,8 +301,8 @@ var _app_factory_db_utils = function ($scope) {
             _value_sql = _value_sql + "?";
             _data_array.push(_value);
         }
-        
-        var _sql = "INSERT INTO " + _table 
+
+        var _sql = "INSERT INTO " + _table
                 + " (" + _field_sql + ") "
                 + " VALUES (" + _value_sql + ")";
 
@@ -311,9 +311,9 @@ var _app_factory_db_utils = function ($scope) {
         $scope.DB.exec(_sql, _data_array, _success_callback);
         return this;
     };
-    
+
     /**
-     * 
+     *
      * @param {type} _table
      * @param {type} _data
      * @param {type} _where_data
@@ -324,7 +324,7 @@ var _app_factory_db_utils = function ($scope) {
     $scope.DB.update = function (_table, _data, _where_data, _success_callback) {
         var _set_sql = '';
         var _data = [];
-        
+
         for (var _field in _data) {
             if (_set_sql !== '') {
                 _set_sql = _set_sql + ",";
@@ -335,7 +335,7 @@ var _app_factory_db_utils = function ($scope) {
             _set_sql = _set_sql + _field + " = ?";
             _data.push(_value);
         }
-        
+
         var _where_sql = _encode_where_data_sql(_where_data);
         var _where_data_ary = _extract_where_data(_where_data);
         _data = $.array_append(_data, _where_data_ary);
@@ -347,22 +347,22 @@ var _app_factory_db_utils = function ($scope) {
         $scope.DB.exec(_sql, _data, _success_callback);
         return this;
     };
-    
+
     /**
-     * 
+     *
      * @param {type} _table
      * @param {type} _data
      * @param {type} _where_data = {
      *      "field": "value"
      * };
      * @param {type} _success_callback
-     * 
+     *
      * 20160316 修改完成，非常完美
      */
     $scope.DB.insert_or_update = function (_table, _data, _where_data, _success_callback) {
 //        // 先根據where_sql找找看筆數
 //        var _data_sql = $scope.DB._encode_data_sql(_data);
-//        
+//
 //        var _where_sql = "";
 //        for (var _i = 0; _i < _data_sql.value.length; _i++) {
 //            if (_where_sql !== "") {
@@ -384,12 +384,12 @@ var _app_factory_db_utils = function ($scope) {
 //            }
 //        });
 //        return this;
-        
-        
+
+
         // step 1. 找出有where條件下的資料
         var _sql = _encode_select_sql(_table, ["id"], _where_data);
         var _data_array = _extract_where_data(_where_data);
-        
+
         $scope.DB.exec(_sql, _data_array, function (_results) {
             if (_results.length > 0) {
                 var _id = _results[0].id;
@@ -400,9 +400,9 @@ var _app_factory_db_utils = function ($scope) {
             }
         });
     };
-    
+
     /**
-     * 
+     *
      * @param {type} _table
      * @param {type} _fields
      * @param {type} _where_data
@@ -421,13 +421,13 @@ var _app_factory_db_utils = function ($scope) {
         if (_where_sql !== "") {
             _where_sql = " WHERE " + _where_sql;
         }
-        
+
         var _sql = "SELECT " + _field_sql + " FROM " + _table + _where_sql;
         return _sql;
     };
-    
+
     /**
-     * 
+     *
      * @param {type} _where_data
      * @returns {String}
      * 20160316 websql 完美
@@ -446,9 +446,9 @@ var _app_factory_db_utils = function ($scope) {
         }
         return _where_sql;
     };
-    
+
     /**
-     * 
+     *
      * @param {type} _where_data
      * @returns {_app_factory_db_utils._extract_where_data._ary|Array}
      * 20160316 websql 完美
@@ -460,9 +460,9 @@ var _app_factory_db_utils = function ($scope) {
         }
         return _ary;
     };
-    
+
     /**
-     * 
+     *
      * @param {type} _value
      * @returns {String}
      */
@@ -473,16 +473,16 @@ var _app_factory_db_utils = function ($scope) {
         }
         return _value;
     };
-    
-    
+
+
 //    $scope.DB.insert_or_update_one = function (_table, _data, _success_callback) {
 //        return $scope.DB.insert_or_update(_table, _data,
 //                'id = 1',
 //                _success_callback);
 //    };
-    
+
     /**
-     * 
+     *
      * @param {type} _table
      * @param {type} _where_data
      * @param {type} _success_callback
@@ -494,26 +494,27 @@ var _app_factory_db_utils = function ($scope) {
             _success_callback = _where_data;
             _where_data = {};
         }
-        
+
         return $scope.DB.table_exists(_table, function (_exists) {
             if (_exists === false) {
                 return $.trigger_callback(_success_callback, 0);
             }
 
-            
+
             //if (typeof (_where_sql) === "string" && _where_sql !== "") {
             //    _where_sql = " WHERE " + _where_sql;
             //}
             //var _sql = "SELECT id FROM " + _table + _where_sql;
+          //  $.console_trace(_table+":"+_where_data);
             var _sql = _encode_select_sql(_table, ['id'], _where_data);
             var _where_data_ary = _extract_where_data(_where_data);
-            
+
             return $scope.DB.exec(_sql, _where_data_ary, function (_results) {
                 $.trigger_callback(_success_callback, _results.length);
             });
         });
     };
-    
+
 //    $scope.DB._encode_data_sql = function (_data) {
 //        var _field_sql = "";
 //        var _field_ary = [];
@@ -543,7 +544,7 @@ var _app_factory_db_utils = function ($scope) {
 //            value: _value_ary
 //        };
 //    };
-    
+
     $scope.DB.error_handler = function (_tx, _error, _sql) {
         //console.log("Database Error: " + _error.message + " in SQL: " + _sql);
         var _msg = "Database Error: " + _error.message + " in SQL: " + _sql;
@@ -562,7 +563,7 @@ var _app_factory_db_utils = function ($scope) {
         //$.console_trace(_sql);
         return $scope.DB.exec(_sql, [], _callback);
     };
-    
+
     $scope.DB.reset = function (_callback) {
         var _keys = $.array_keys(_register_data);
 

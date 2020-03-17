@@ -1,4 +1,11 @@
 <ons-page id="profile_html" ng-device-backbutton="exit_app()" ng-init="profile = ctl_profile.status">
+    <ons-modal var="target_help_modal" ng-click="target_help_modal.hide()" class="target-help-modal">
+        <img ng-src="{{ ctl_target.var.target_help.help_img}}" />
+        
+    </ons-modal>
+    
+</div>
+
     <form ng-submit="ctl_profile.submit()" style="text-align: center;">
         <ons-toolbar>
 
@@ -20,6 +27,7 @@
 
         <ons-row>
             <ons-col align="center">
+
             <input type="text" ng-model="profile.name"
                    class="text-input text-input--underbar"
                    style="text-align:center;font-size: x-large;margin-top: 1rem;width: calc(100% - 20px);height: 60px;"

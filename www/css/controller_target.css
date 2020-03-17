@@ -11,6 +11,10 @@
     color: #d9534f;
 }
 
+.testlimit {
+    color: grey !important;
+}
+
 @media screen and (max-width: 550px) {
     #menu_html .target-completed {
         color: #F4FF77;

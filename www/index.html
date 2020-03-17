@@ -8,7 +8,7 @@
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="viewport" content="minimal-ui" />
 
-        <!-- ======================================== 
+        <!-- ========================================
              Library
              ======================================== -->
         <!-- JS dependencies (order matters!) -->
@@ -28,11 +28,11 @@
         <link rel="stylesheet" href="lib/angular/angular-csp.css" />
 
         <link rel="stylesheet" href="pulipuli-utils/css/onsen-css-components.css" />
-        <!-- ======================================== 
+        <!-- ========================================
              Style
              ======================================== -->
         <link rel="stylesheet" href="pulipuli-utils/css/float-action-button.css" />
-        
+
         <link rel="stylesheet" href="pulipuli-utils/css/ons-view.css" />
         <link rel="stylesheet" href="pulipuli-utils/css/ons.css" />
         <link rel="stylesheet" href="pulipuli-utils/css/bootstrap.css" />
@@ -44,7 +44,7 @@
         <link rel="stylesheet" href="css/controller_learn_flashcard.css" />
         <link rel="stylesheet" href="css/controller_note.css" />
         <link rel="stylesheet" href="css/controller_test_select.css" />
-		
+
 
         <title>{{ 'TITLE' | translate }}</title>
 
@@ -52,22 +52,30 @@
         <link rel="apple-touch-icon" href="img/Voc4Fun-icon256.png" />
     </head>
 
-    <!-- ======================================== 
+    <!-- ========================================
          View
          ======================================== -->
     <body ng-controller="app_controller" ng-class="{'control_group_version': CONFIG.control_group_version}">
 
-    <ons-sliding-menu id="menu" var="app.menu" 
-                      main-page="main" menu-page="menu.html" max-slide-distance="200px" 
+    <ons-sliding-menu id="menu" var="app.menu"
+                      main-page="main" menu-page="menu.html" max-slide-distance="200px"
                       type="reveal" side="left" ons-preopen="menu_open()" ons-preclose="menu_close()" >
     </ons-sliding-menu>
 
 
     <ons-template id="main">
-        <ons-navigator var="app.navi" page="splash_screen.html"></ons-navigator> 
+        <ons-navigator var="app.navi" page="splash_screen.html"></ons-navigator>
     </ons-template>
+	<ons-template id="score.html">
+		<ons-page id="score">
+		</ons-page>
+	</ons-template>
+	<ons-template id="score_total.html">
+		<ons-page id="score_total">
+		</ons-page>
+	</ons-template>
 
-    <!-- ======================================= 
+    <!-- =======================================
          Controller
          ======================================= -->
     <script src="config.js"></script>
@@ -92,6 +100,7 @@
     <script src="pulipuli-utils/js/cordova_text_to_speech.js"></script>
 
     <script src="js/controller_platform.js"></script>
+    <script src="js/controller_rank.js"></script>
     <script src="js/controller_profile.js"></script>
     <script src="js/controller_flashcard.js"></script>
     <script src="js/controller_target.js"></script>
@@ -102,21 +111,22 @@
     <script src="js/controller_notification.js"></script>
     <script src="js/controller_target_history.js"></script>
     <script src="js/controller_setting.js"></script>
-
+    <script src="js/controller_logincheck.js"></script>
+	<script src="js/controller_personal.js"></script>
     <script src="js/controller_test_select.js"></script>
 
     <script src="app_ready.js"></script>
 
 
-    <!-- cordova -->
+    <!-- cordova >
     <script src="cordova.js"></script>
     <script type="text/javascript" charset="utf-8" src="tts.js"></script>
-    <script type="text/javascript" charset="utf-8" src="telephonenumber.js"></script>
+    <script type="text/javascript" charset="utf-8" src="telephonenumber.js"></script-->
 
     <!-- ========================================= -->
 
     <script type="text/javascript">
-        
+
         /*global ons:false */
         /*global $translateProvider:false */
         /*global $scope:false */
@@ -158,6 +168,9 @@
             controller_profile($scope);
             controller_flashcard($scope);
             controller_target($scope);
+            controller_logincheck($scope);
+            controller_rank($scope);
+            controller_personal($scope);
             controller_activity($scope);
             controller_learn_flashcard($scope);
             controller_note($scope);
@@ -168,7 +181,7 @@
             controller_setting($scope);
 
             // -----------------------------------
-            
+
             _app_ready($scope);
         };  //var _app_controller = function ($scope, $filter) {
 

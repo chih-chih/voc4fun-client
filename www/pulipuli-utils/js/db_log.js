@@ -113,14 +113,13 @@ var db_log = function ($scope) {
         var _callback = $.parse_opt(_opt, "callback");
         
         var _where = _ctl._create_log_where(_opt);
-
         var _sql = "SELECT timestamp, data FROM log ";
         if (_where.sql !== undefined && _where.sql !== "") {
             _sql = _sql + " WHERE " + _where.sql;
         }
 
-        _sql = _sql + " ORDER BY timestamp DESC LIMIT 0,1";
-
+        _sql = _sql + " ORDER BY timestamp DESC LIMIT 1";
+       
         $scope.DB.exec(_sql, _where.data, function (_row) {
             var _data;
             if (_row.length > 0) {
@@ -132,6 +131,9 @@ var db_log = function ($scope) {
             }
             $.trigger_callback(_callback, _data);
         });
+
+
+        
     };
     
     _ctl._create_log_where = function (_opt) {
@@ -331,6 +333,7 @@ var db_log = function ($scope) {
                     if (typeof (_result) === "boolean" && _result === true) {
                         // 表示沒有資料需要更新
                         //$.console_trace("沒有需要更新");
+                        
                         _sync_complete();
                     }
                     else if (typeof (_result) === "number") {
@@ -373,7 +376,7 @@ var db_log = function ($scope) {
             return;
         }
         var _url = $scope.CONFIG.server_url + "model/sync.php";
-        $.console_trace("sync_push: " + _server_timestamp);
+        //$.console_trace("sync_push: " + _server_timestamp);
 
 
         // 先準備好要傳過去的資料
@@ -424,7 +427,7 @@ var db_log = function ($scope) {
                 }
                 var _url = $scope.CONFIG.server_url + "model/sync.php";
 
-                $.console_trace("sync_pull", _log);
+                //$.console_trace("sync_pull", _log);
 
                 var _data = {
                     uuid: $scope.ctl_profile.get_uuid(),

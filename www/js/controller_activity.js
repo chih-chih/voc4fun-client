@@ -7,6 +7,23 @@ var controller_activity = function ($scope) {
     // --------------------------
     
     _ctl.enter_from_target = function () {
+        //$.console_trace("設定swipeable");
+        //$scope.set_swipeable(true);
+        //$.console_trace("enter_from_target");
+
+        if ($scope.CONFIG.control_group_version || $scope.ctl_target.is_all_finish()) {
+            _ctl.select_enter_by_last_action();
+        }
+        else {
+            //_ctl.select_enter_by_target();
+            _ctl.logincheck_enter_by_target();
+            
+        }
+        
+        return this;
+    };
+
+    _ctl.enter_from_logincheck = function () {
         
         //$.console_trace("設定swipeable");
         $scope.set_swipeable(true);
@@ -31,6 +48,13 @@ var controller_activity = function ($scope) {
             //$.console_trace("$scope.ctl_learn_flashcard.enter();");
             $scope.ctl_learn_flashcard.enter();
         }
+        return this;
+    };
+
+    _ctl.logincheck_enter_by_target = function () {
+    
+        $scope.ctl_logincheck.enter();
+        
         return this;
     };
     

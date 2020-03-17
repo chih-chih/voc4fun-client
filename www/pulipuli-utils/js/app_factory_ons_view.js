@@ -23,7 +23,7 @@ var _app_factory_ons_view = function ($scope) {
         
         $scope.log(_log_file, "exit_app()");
         
-        $scope.sync(function () {
+        $scope.db_log.sync(function () {
             if (typeof (cordova) !== "undefined") {
                 navigator.app.exitApp();
             }
