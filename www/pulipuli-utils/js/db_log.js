@@ -130,8 +130,26 @@ var db_log = function ($scope) {
                 }
             }
             $.trigger_callback(_callback, _data);
-        });
+        });        
+    };
 
+    _ctl.get_log= function (_opt) {
+        var _return_timestamp = $.parse_opt(_opt, "return_timestamp", false);
+        var _callback = $.parse_opt(_opt, "callback");
+        var _where = _ctl._create_log_where(_opt);
+        var _sql = "SELECT timestamp, data FROM log ";
+        if (_where.sql !== undefined && _where.sql !== "") {
+            _sql = _sql + " WHERE " + _where.sql;
+        }
+
+        _sql = _sql + " ORDER BY timestamp";
+        $scope.DB.exec(_sql, _where.data, function (_row) {
+            var _data;
+            if (_row.length > 0) {
+                _data = _row;
+            }
+            $.trigger_callback(_callback, _data);
+        });
 
         
     };

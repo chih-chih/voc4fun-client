@@ -191,7 +191,7 @@ var controller_learn_flashcard = function ($scope) {
             _qualifier = "history";
             _status.history_index++;
             _ctl.set_history_flashcard(function (_flashcard) {
-
+                
                 _trans_callback(_flashcard);
             });
         }

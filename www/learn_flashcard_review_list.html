@@ -1,0 +1,55 @@
+<ons-page id="learn_flashcard_review_html"
+          class="learn-flashcard-page"
+          ng-device-backbutton="main_back()"
+          ng-init="_learn_flashcard = ctl_learn_flashcard_review.var.learn_flashcard">
+    <ons-toolbar>
+        <div class="left">
+            <ons-toolbar-button ng-click="app.menu.open()" class="menu-open">
+                <span class="toolbar-button--quiet navigation-bar__line-height" >
+                    <ons-icon icon="ion-navicon" fixed-width="true"></ons-icon>
+                </span>
+            </ons-toolbar-button>
+        </div>
+
+        <div class="center" >
+            單字複習列表
+        </div>
+        <div class="center">
+            單字複習列表
+        </div>
+        
+
+        
+    </ons-toolbar>
+        <ons-button ng-click="ctl_learn_flashcard_review.showtimesort()">
+            <ons-icon icon="" class=""></ons-icon>
+            <div>
+                時間排序 <!-- @TODO 語系 -->
+            </div>
+        </ons-button>
+        <ons-button ng-click="ctl_learn_flashcard_review.showgroupsort()">
+            <ons-icon icon="" class="" ></ons-icon>
+            <div>
+                字母排序 <!-- @TODO 語系 -->
+            </div>
+        </ons-button>
+    <ons-list modifier="inset" ng-repeat="data in ctl_learn_flashcard_review.groupsortobj" ng-show="ctl_learn_flashcard_review.status.showgroup === true">
+        <ons-list-header>{{ data.group}}
+        </ons-list-header>
+        <ons-list-item ng-repeat="subdata in data.children" >
+            <ons-item class="title" ng-click="ctl_learn_flashcard_review.viewcard(subdata)">
+                {{ subdata.q }}
+            </ons-item>
+        </ons-list-item>
+    </ons-list>
+
+    <ons-list modifier="inset" ng-repeat="data in ctl_learn_flashcard_review.timesortobj" ng-show="ctl_learn_flashcard_review.status.showtime === true">
+        <ons-list-item>
+            <ons-item class="title" ng-click="ctl_learn_flashcard_review.viewcard(data)">
+                {{ data.q }}
+            </ons-item>
+        </ons-list-item>
+    </ons-list>
+    
+
+</ons-page>

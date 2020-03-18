@@ -168,7 +168,7 @@ var controller_flashcard = function ($scope) {
         if (typeof(_flashcard) === "object") {
             _flashcard.id = _id;
         }
-        //$.console_trace(_flashcard);
+        $.console_trace(_flashcard);
         $.trigger_callback(_callback, _flashcard);
         return _flashcard;
     };
