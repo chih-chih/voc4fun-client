@@ -18,9 +18,62 @@
     </ons-toolbar>
 
 
-    <p class="center" id="personalall">
-      
-    </p>
+    <ons-list modifier="inset" id="personalall">
+        <ons-list-header>名稱</ons-list-header>
+        <ons-list-item >{{ctl_personal.status.name}}</ons-list-item>
+        <ons-list-header>昨日分數</ons-list-header>
+        <ons-list-item >{{ctl_personal.status.yesterdayscore}}</ons-list-item>
+        <ons-list-header>連續登入天數</ons-list-header>
+        <ons-list-item >{{ctl_personal.status.loginday}}</ons-list-item>
+        <ons-list-header>今日設定目標</ons-list-header>
+        <ons-list-item >{{ctl_personal.status.target}}</ons-list-item>
+        <ons-list-header>今日單字學習數</ons-list-header>
+        <ons-list-item >
+            <ons-row>
+                <ons-col >
+                    <div class="w3progress" style="line-height: 2;margin: auto;padding-top: 1%;padding-bottom: 1%;">
+                        <div class="w3-light-grey w3-round">
+                          <div class="w3-container w3-round w3-blue" style="width:{{ctl_personal.status.learnflashcardrate}}%">{{ctl_personal.status.learnflashcardrate}}%</div>
+                    </div>
+                    </div>
+                </ons-col>
+                <ons-col>
+                    {{ctl_personal.status.learnflashcard}}
+                </ons-col>
+            </ons-row>
+        </ons-list-item>
+        <ons-list-header>今日單字筆記數</ons-list-header>
+        <ons-list-item >
+            <ons-row>
+                <ons-col>
+                    <div class="w3progress" style="line-height: 2;margin: auto;padding-top: 1%;padding-bottom: 1%;">
+                        <div class="w3-light-grey w3-round">
+                          <div class="w3-container w3-round w3-blue" style="width:{{ctl_personal.status.takenoterate}}%">{{ctl_personal.status.takenoterate}}%</div>
+                    </div>
+                    </div>
+                </ons-col>
+                <ons-col>
+                    {{ctl_personal.status.takenote}}
+                </ons-col>
+            </ons-row>
+        </ons-list-item>
+        <ons-list-header>今日單字測驗數</ons-list-header>
+        <ons-list-item >
+            <ons-row>
+                <ons-col >
+                    <div class="w3progress" style="line-height: 2;margin: auto;padding-top: 1%;padding-bottom: 1%;">
+                        <div class="w3-light-grey w3-round">
+                          <div class="w3-container w3-round w3-blue" style="width:{{ctl_personal.status.testselectrate}}%">{{ctl_personal.status.testselectrate}}%</div>
+                        </div>
+                        </div>
+                </ons-col>
+                <ons-col>
+                    {{ctl_personal.status.testselect}}
+                </ons-col>
+            </ons-row>
+        </ons-list-item>
+        
+    </ons-list>
 
 
 
