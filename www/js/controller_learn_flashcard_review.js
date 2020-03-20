@@ -204,8 +204,16 @@ var controller_learn_flashcard_review = function ($scope) {
                 else r[group].children.push(e);
                 return r;
             }, {})
-        let result = Object.values(data)
-        return result;
+        var sortable = [];
+        for (var vehicle in data) {
+            sortable.push(data[vehicle]);
+        }
+        sortable.sort(function(a, b) {
+            return a.group > b.group? 1 : -1;
+        });
+        //let result = Object.values(data)
+
+        return sortable;
     }
 
     _ctl.next = function (_callback, _do_animation) {

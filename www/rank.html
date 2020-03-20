@@ -1,9 +1,9 @@
-<ons-page id="rank_html" 
+<ons-page id="rank_html"
           class="rank-page"
-          ng-device-backbutton="main_back()" 
+          ng-device-backbutton="main_back()"
           ng-init="">
 
-    
+
     <ons-toolbar>
 
         <div class="left">
@@ -18,37 +18,84 @@
             排行
         </div>
 
-        
+
     </ons-toolbar>
-	
+
 	<ons-tabbar>
-        <ons-tab label=" 昨日得分"  
-                 ng-click="ctl_rank.enter();">
+        <ons-tab label=" 昨日得分"
+                 ng-click="ctl_rank.enter();">         
+
                 </ons-tab>
-                 
-        <ons-tab label="累積得分"  
+
+        <ons-tab label="累積得分"
                  ng-click="ctl_rank.total();">
-                
+
 	</ons-tab>
-                 
+
     </ons-tabbar>
-    <div class="right" id="scoreall">
-             
-             </div>
-	
+    <ons-list modifiew="inset" id="scoreall">
+      <ons-list-header>昨日得分</ons-list-header>
+      <ons-list-item>{{ctl_rank.status.yesterday_score}}</ons-list-item>
+      <ons-list-header>昨日設定目標</ons-list-header>
+      <ons-list-item>{{ctl_rank.status.yesterday_target}}</ons-list-item>
+      <ons-list-header>昨日單字學習完成數</ons-list-header>
+      <ons-list-item>{{ctl_rank.status.yesterday_done_learn_flashcard}}</ons-list-item>
+      <ons-list-header>昨日單字筆記完成數</ons-list-header>
+      <ons-list-item>{{ctl_rank.status.yesterday_done_take_note}}</ons-list-item>
+      <ons-list-header>昨日單字測驗完成數</ons-list-header>
+      <ons-list-item>{{ctl_rank.status.yesterday_done_test_select}}</ons-list-item>
+      <ons-list-header>昨日目標達成難度</ons-list-header>
+      <ons-list-item>{{ctl_rank.status.hard_target}}</ons-list-item>
+      <ons-list-header>昨日單字學習達成率</ons-list-header>
+      <ons-list-item>
+        <ons-row>
+          <ons-col >
+            <div class="w3progress" style="line-height: 2;margin: auto;padding-top: 1%;padding-bottom: 1%;">
+              <div class="w3-light-grey w3-round">
+                <div class="w3-container w3-round w3-blue" style="width:{{ctl_rank.status.rate_learn_flashcard}}%">{{ctl_rank.status.rate_learn_flashcard}}%</div>
+              </div>
+              </div>
+          </ons-col>
+        </ons-row>
+      </ons-list-item>
+      <ons-list-header>昨日單字筆記達成率</ons-list-header>
+      <ons-list-item>
+        <ons-row>
+          <ons-col >
+            <div class="w3progress" style="line-height: 2;margin: auto;padding-top: 1%;padding-bottom: 1%;">
+              <div class="w3-light-grey w3-round">
+                <div class="w3-container w3-round w3-blue" style="width:{{ctl_rank.status.rate_take_note}}%">{{ctl_rank.status.rate_take_note}}%</div>
+              </div>
+              </div>
+          </ons-col>
+        </ons-row>
+      </ons-list-item>
+      <ons-list-header>昨日單字測驗達成率</ons-list-header>
+      <ons-list-item>
+        <ons-row>
+          <ons-col >
+            <div class="w3progress" style="line-height: 2;margin: auto;padding-top: 1%;padding-bottom: 1%;">
+              <div class="w3-light-grey w3-round">
+                <div class="w3-container w3-round w3-blue" style="width:{{ctl_rank.status.rate_test_select}}%">{{ctl_rank.status.rate_test_select}}%</div>
+              </div>
+              </div>
+          </ons-col>
+        </ons-row>
+      </ons-list-item>
+    </ons-list>
 	<!--ons-template id="score.html">
-	
-		
+
+
 		<p style="text-align: center;">
-		
+
 		  <div class="right"
              ng-show="!CONFIG.control_group_version">
 			 昨日得分:{{(ctl_rank.var.yesterday_target_data.learn_flashcard.done/ctl_rank.var.yesterday_target_data.learn_flashcard.target*0.2+ctl_rank.var.yesterday_target_data.test_select.done/ctl_rank.var.yesterday_target_data.learn_flashcard.target*0.5)*100}}
 			<br>
             單字學習完成率:{{ctl_rank.var.yesterday_target_data.learn_flashcard.done/ctl_rank.var.yesterday_target_data.learn_flashcard.target}}
-            <br>        
+            <br>
 			單字筆記完成率:{{ctl_rank.var.yesterday_target_data.take_note.done/ctl_rank.var.yesterday_target_data.learn_flashcard.target}}
-            <br>        
+            <br>
 			單字測驗完成率:{{ctl_rank.var.yesterday_target_data.test_select.done/ctl_rank.var.yesterday_target_data.learn_flashcard.target}}
             <br>
             設定目標:{{ ctl_rank.var.yesterday_target_data.learn_flashcard.target }}
@@ -61,12 +108,12 @@
             <br>
         </div>
 		</p>
-		
-		
+
+
 	</ons-template>
-	
+
 	<ons-template id="score_total.html">
-		
+
 		<p style="text-align: center;">
 		  <div class="right"
              ng-show="!CONFIG.control_group_version">
@@ -75,11 +122,10 @@
 			累積得分:{{ctl_rank.var.totalscore.totalscore}}
  			</div>
 		</p>
-		
-		
+
+
 	</ons-template-->
 
 
-  
-</ons-page>
 
+</ons-page>
