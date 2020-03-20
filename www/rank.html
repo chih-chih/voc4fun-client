@@ -21,31 +21,14 @@
 
     </ons-toolbar>
 
-	<ons-tabbar>
-        <ons-tab label=" 昨日得分"
-                 ng-click="ctl_rank.enter();">         
-
-                </ons-tab>
-
-        <ons-tab label="累積得分"
-                 ng-click="ctl_rank.total();">
-
-	</ons-tab>
-
-    </ons-tabbar>
     <ons-list modifiew="inset" id="scoreall">
-      <ons-list-header>昨日得分</ons-list-header>
-      <ons-list-item>{{ctl_rank.status.yesterday_score}}</ons-list-item>
-      <ons-list-header>昨日設定目標</ons-list-header>
-      <ons-list-item>{{ctl_rank.status.yesterday_target}}</ons-list-item>
-      <ons-list-header>昨日單字學習完成數</ons-list-header>
-      <ons-list-item>{{ctl_rank.status.yesterday_done_learn_flashcard}}</ons-list-item>
-      <ons-list-header>昨日單字筆記完成數</ons-list-header>
-      <ons-list-item>{{ctl_rank.status.yesterday_done_take_note}}</ons-list-item>
-      <ons-list-header>昨日單字測驗完成數</ons-list-header>
-      <ons-list-item>{{ctl_rank.status.yesterday_done_test_select}}</ons-list-item>
-      <ons-list-header>昨日目標達成難度</ons-list-header>
-      <ons-list-item>{{ctl_rank.status.hard_target}}</ons-list-item>
+      <ons-list-header>昨日統計</ons-list-header>
+      <ons-list-item>昨日得分:{{ctl_rank.status.yesterday_score}}</ons-list-item>
+      <ons-list-item>昨日設定目標:{{ctl_rank.status.yesterday_target}}</ons-list-item>
+      <ons-list-item>昨日單字學習完成數:{{ctl_rank.status.yesterday_done_learn_flashcard}}</ons-list-item>
+      <ons-list-item>昨日單字筆記完成數:{{ctl_rank.status.yesterday_done_take_note}}</ons-list-item>
+      <ons-list-item>昨日單字測驗完成數:{{ctl_rank.status.yesterday_done_test_select}}</ons-list-item>
+      <ons-list-item>昨日目標達成難度:{{ctl_rank.status.hard_target}}</ons-list-item>
       <ons-list-header>昨日單字學習達成率</ons-list-header>
       <ons-list-item>
         <ons-row>
@@ -125,7 +108,15 @@
 
 
 	</ons-template-->
+  <ons-tabbar swipeable position="bottom">
+    <ons-tab label=" 昨日得分"
+       ng-click="ctl_rank.enter();">         
+      </ons-tab>
+    <ons-tab label="累積得分"
+        ng-click="ctl_rank.total();">
+   </ons-tab>
 
+  </ons-tabbar>
 
 
 </ons-page>
