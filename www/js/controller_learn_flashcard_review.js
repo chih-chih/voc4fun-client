@@ -212,6 +212,7 @@ var controller_learn_flashcard_review = function ($scope) {
             return a.group > b.group? 1 : -1;
         });
         //let result = Object.values(data)
+
         return sortable;
     }
 

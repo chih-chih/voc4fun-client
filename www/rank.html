@@ -21,14 +21,25 @@
 
     </ons-toolbar>
 
-    <ons-list modifiew="inset" id="scoreall">
+    <ons-list modifiew="inset" ng-show="ctl_rank.status.show_yesterday_data===true">
       <ons-list-header>昨日統計</ons-list-header>
       <ons-list-item>昨日得分:{{ctl_rank.status.yesterday_score}}</ons-list-item>
       <ons-list-item>昨日設定目標:{{ctl_rank.status.yesterday_target}}</ons-list-item>
       <ons-list-item>昨日單字學習完成數:{{ctl_rank.status.yesterday_done_learn_flashcard}}</ons-list-item>
       <ons-list-item>昨日單字筆記完成數:{{ctl_rank.status.yesterday_done_take_note}}</ons-list-item>
       <ons-list-item>昨日單字測驗完成數:{{ctl_rank.status.yesterday_done_test_select}}</ons-list-item>
-      <ons-list-item>昨日目標達成難度:{{ctl_rank.status.hard_target}}</ons-list-item>
+      <ons-list-header>昨日目標達成難度</ons-list-header>
+      <ons-list-item>
+        <ons-row>
+          <ons-col >
+            <div class="w3progress" style="line-height: 2;margin: auto;padding-top: 1%;padding-bottom: 1%;">
+              <div class="w3-light-grey w3-round">
+                <div class="w3-container w3-round w3-blue" style="width:{{ctl_rank.status.hard_target}}%">{{ctl_rank.status.hard_target}}%</div>
+              </div>
+              </div>
+          </ons-col>
+        </ons-row>
+      </ons-list-item>
       <ons-list-header>昨日單字學習達成率</ons-list-header>
       <ons-list-item>
         <ons-row>
@@ -66,6 +77,13 @@
         </ons-row>
       </ons-list-item>
     </ons-list>
+
+    <ons-list modifiew="inset" ng-show="ctl_rank.status.show_total_data===true">
+      <ons-list-item>{{ctl_rank.status.all_data}}</ons-list-item>
+
+
+    </ons-list>
+
 	<!--ons-template id="score.html">
 
 
@@ -110,10 +128,10 @@
 	</ons-template-->
   <ons-tabbar swipeable position="bottom">
     <ons-tab label=" 昨日得分"
-       ng-click="ctl_rank.enter();">         
+       ng-click="ctl_rank.enter()">
       </ons-tab>
     <ons-tab label="累積得分"
-        ng-click="ctl_rank.total();">
+        ng-click="ctl_rank.total()">
    </ons-tab>
 
   </ons-tabbar>

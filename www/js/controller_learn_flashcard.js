@@ -173,7 +173,7 @@ var controller_learn_flashcard = function ($scope) {
                 setTimeout(function () {
                     $scope.$digest();
                 }, 0);
-                
+
                 _trans_callback(_flashcard);
             };
 
@@ -191,7 +191,7 @@ var controller_learn_flashcard = function ($scope) {
             _qualifier = "history";
             _status.history_index++;
             _ctl.set_history_flashcard(function (_flashcard) {
-                
+
                 _trans_callback(_flashcard);
             });
         }
@@ -347,7 +347,7 @@ var controller_learn_flashcard = function ($scope) {
         var _id = _status.flashcard_index;
 
         // 如果跟現在的id相同，則繼續下一個
-        
+
         //_id++;
         //$.console_trace(typeof(_id), _id);
 
@@ -362,7 +362,7 @@ var controller_learn_flashcard = function ($scope) {
 //                $.trigger_callback(_callback, _flashcard);
 //            }
 //        });
-        
+
         var _flashcard = $scope.ctl_flashcard.get_flashcard(_id);
             if (_flashcard === undefined) {
                 // 表示已經到了最後一列
@@ -422,20 +422,20 @@ var controller_learn_flashcard = function ($scope) {
         if (typeof(_var.learn_flashcard.q) !== "string") {
             return;
         }
-        
+
         //var _id = _ctl.get_current_flashcard_id();
 
-        
+
 
         if (typeof($scope.CONFIG.server_url) === "string") {
             var _url = $scope.CONFIG.server_url + "model/note.php";
             setTimeout(function () {
-                
+
                 var _data = {
                     q: _var.learn_flashcard.q,
                     uuid: $scope.ctl_profile.get_uuid()
                 };
-                
+
                 //$.console_trace("現在有筆記嗎？", _var.learn_flashcard.note);
                 var _check_my_note = true;
                 if (typeof (_var.learn_flashcard.note) === "string" && $.trim(_var.learn_flashcard.note) !== "") {
@@ -448,18 +448,18 @@ var controller_learn_flashcard = function ($scope) {
                 else {
                     //$.console_trace("沒有資料", [typeof (_var.learn_flashcard.note), _var.learn_flashcard.note]);
                 }
-                
+
                 if (typeof(_data.q) !== "string" || _data.q === "") {
                     _ctl.other_note_ajax(_callback);
                     return;
                 }
-                
+
                 $.getJSON(_url, _data, function (_other_note) {
                     _ctl.set_other_note(_other_note, _check_my_note, _callback);
                 });
             }, 1000);
         }
-            
+
 
 //        setTimeout(function () {
 //            _var.learn_flashcard.other_note = _var._other_note_mock;
@@ -475,7 +475,7 @@ var controller_learn_flashcard = function ($scope) {
 //            $.trigger_callback(_callback);
 //        }, 1000);
     };  //_ctl.other_note_ajax = function (_callback) {
-    
+
     _ctl.set_other_note = function (_notes, _check_my_note, _callback) {
         if (typeof(_notes) === "object" && typeof(_notes.name) === "string") {
             _notes = [_notes];
