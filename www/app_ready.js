@@ -18,6 +18,7 @@ var _app_ready = function ($scope) {
                 if ($scope.ctl_profile.check_version_match()) {
                     $scope.db_log.sync_init();
                     $scope.ctl_target.enter_from_profile(false);
+                    //$scope.ctl_rank.enter();
 
                 }
                 else {
@@ -27,7 +28,7 @@ var _app_ready = function ($scope) {
             }
         });
     };  //var _init = function () {
-    
+
     var _ready = function () {
         if ($scope.CONFIG.remote_debug === true
                 && typeof ($scope.CONFIG.server_url) === "string") {

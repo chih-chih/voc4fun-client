@@ -22,6 +22,7 @@
     </ons-toolbar>
 
     <ons-list modifiew="inset" ng-show="ctl_rank.status.show_yesterday_data===true">
+
       <ons-list-header>昨日統計</ons-list-header>
       <ons-list-item>昨日得分:{{ctl_rank.status.yesterday_score}}</ons-list-item>
       <ons-list-item>昨日設定目標:{{ctl_rank.status.yesterday_target}}</ons-list-item>
@@ -79,7 +80,12 @@
     </ons-list>
 
     <ons-list modifiew="inset" ng-show="ctl_rank.status.show_total_data===true">
-      <ons-list-item>{{ctl_rank.status.all_data}}</ons-list-item>
+    <ons-list-item>第一名:{{ctl_rank.status.all_data[0].name}} 總分:{{ctl_rank.status.all_data[0].total}}</ons-list-item>
+    <ons-list-item>第二名:{{ctl_rank.status.all_data[1].name}} 總分:{{ctl_rank.status.all_data[1].total}}</ons-list-item>
+    <ons-list-item>第三名:{{ctl_rank.status.all_data[2].name}} 總分:{{ctl_rank.status.all_data[2].total}}</ons-list-item>
+    <ons-list-item>第四名:{{ctl_rank.status.all_data[3].name}} 總分:{{ctl_rank.status.all_data[3].total}}</ons-list-item>
+    <ons-list-item>第五名:{{ctl_rank.status.all_data[4].name}} 總分:{{ctl_rank.status.all_data[4].total}}</ons-list-item>
+
 
 
     </ons-list>

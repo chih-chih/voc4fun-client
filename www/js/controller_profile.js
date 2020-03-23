@@ -1,28 +1,28 @@
 var controller_profile = function ($scope) {
 
     var _ctl = {};
-    
+
     var _log_file = "controller_profile.js";
 
     // --------------------------
-    
+
     var _var = {};
-    
+
     _var.name_mock = $scope.CONFIG.default_name;
 
     _ctl.var = _var;
 
     // --------------------------
-    
+
     var _status = {};
-    
+
     _status.name;
     _status.uuid;
     _status.group_name;
     _status.version;
-    
+
     _ctl.status = _status;
-    
+
     var _status_key = "profile";
 
     var _init_status = function () {
@@ -41,7 +41,7 @@ var controller_profile = function ($scope) {
         );
     };
     _init_status();
-    
+
     // ---------------------------
 
 //    $scope.profile_reset = function () {
@@ -87,10 +87,10 @@ var controller_profile = function ($scope) {
 ////            $scope.db_profile.save_profile_to_db(_callback);
 ////        });
 //    };
-    
+
     /**
      * 把$scope.user_name存進DB
-     * 
+     *
      * 在名稱改變時使用，或是按下確定時使用
      */
     _ctl.save = function (_callback) {
@@ -100,7 +100,7 @@ var controller_profile = function ($scope) {
         $scope.db_status.save_status(_status_key);
         $.trigger_callback(_callback);
     };
-    
+
     _ctl.setup_uuid = function () {
         if (_status.uuid === undefined || _status.uuid === 0) {
 //            var _fingerprint = new Fingerprint().get();
@@ -112,28 +112,28 @@ var controller_profile = function ($scope) {
     /*原版
     _ctl.submit = function () {
         _ctl.checkname();
-        
+
         //_ctl.setup_uuid();
-        
+
         $scope.ctl_platform.recordPlatform();
         $scope.ctl_platform.recordGroup();
         _status.group_name = $scope.CONFIG.group_name;
         _status.version = $scope.CONFIG.version;
-        
+
         _ctl.save();
-        
+
         // 設定log
         $scope.log(_log_file, "submit()", _status);
-        
+
         _ctl.change_user_name(_status.name);
         console.log(_status.uuid);
         $scope.ctl_target.enter_from_profile();
-        
+
         return this;
-        
+
     };
     */
-   
+
    //
    //知瑋版本
     _ctl.submit = function () {
@@ -150,15 +150,16 @@ var controller_profile = function ($scope) {
                     $scope.ctl_platform.recordGroup();
                     _status.group_name = $scope.CONFIG.group_name;
                     _status.version = $scope.CONFIG.version;
-                    
+
                     _ctl.save();
-                    
+
                     // 設定log
                     $scope.log(_log_file, "submit()", _status);
-                    
+
                     _ctl.change_user_name(_status.name);
                     target_help_modal.hide();
-                    $scope.ctl_target.enter_from_profile();
+                    //$scope.ctl_target.enter_from_profile();
+                    $scope.ctl_rank.enter();
 
                     return this;
                 }else{
@@ -167,7 +168,7 @@ var controller_profile = function ($scope) {
                     let _uuid = result[0]['uuid'];
                     _status.uuid = _uuid;
                     //$scope.db_log.sync_pull(result);
-                    
+
                     for(var i in result){
                         var _insert_data = {
                             'timestamp': parseInt(result[i]['timestamp']),
@@ -176,7 +177,7 @@ var controller_profile = function ($scope) {
                             'qualifier': result[i]['qualifier'],
                             'data': result[i]['data']
                         };
-                        
+
                         //alert(JSON.stringify(_insert_data));
                         $scope.DB.insert('log', _insert_data);
                     }
@@ -187,25 +188,26 @@ var controller_profile = function ($scope) {
                     _status.version = $scope.CONFIG.version;
                     _ctl.save();
                     // 設定log
-                    $scope.log(_log_file, "submit()", _status);                    
+                    $scope.log(_log_file, "submit()", _status);
                     _ctl.change_user_name(_status.name);
-                    $scope.ctl_target.enter_from_profile();                    
+                    $scope.ctl_target.enter_from_profile();
+                    //$scope.ctl_rank.enter();
                     return this;
-                    
+
                 }
             });
 
 
     };
 
-    
+
     _ctl.change_user_name = function (_name) {
         if (_name === undefined) {
             _name = _status.name;
         }
         $scope.log(_log_file, "change_user_name()", undefined, _name);
     };
-    
+
     _ctl.init = function (_callback) {
         if (_status.name === undefined) {
             //_status.name = $scope.cordova_utils.get_device_name();
@@ -218,11 +220,11 @@ var controller_profile = function ($scope) {
             $.trigger_callback(_callback);
         }
     };
-    
+
     _ctl.get_uuid = function () {
         return _ctl.setup_uuid();
     };
-    
+
     _ctl.enter = function (_callback) {
         _ctl.init(function () {
             $scope.log(_log_file, "enter()", undefined, {name: _status.name});
@@ -231,20 +233,20 @@ var controller_profile = function ($scope) {
                 onTransitionEnd: _callback
             });
         });
-        
+
     };
-    
+
     _ctl.reset = function () {
         $scope.ctl_profile.status = {};
     };
-    
+
     // -----------------------------------
-    
+
     _ctl.check_version_match = function () {
-        return (typeof(_status.version) === "number" 
+        return (typeof(_status.version) === "number"
                 && _status.version === $scope.CONFIG.version);
     };
-    
+
     _ctl.reset_app = function () {
         // STEP 1. 刪除 所有 status
         $scope.ls.reset();
@@ -266,13 +268,13 @@ var controller_profile = function ($scope) {
                     location.reload();
                 }
             });
-        
+
         });
-        
-        
+
+
     };
-    
+
     // -----------------------------------
-    
+
     $scope.ctl_profile = _ctl;
 };

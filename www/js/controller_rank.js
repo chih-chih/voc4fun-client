@@ -60,12 +60,16 @@ var controller_rank = function ($scope) {
     totalscore:0,
     show_yesterday_data:true,
     show_total_data:false,
-    all_data:''
+    all_data:[],
+    signal_data:[],
+    yesterday_uuid:1,
+    yesterday_name:1,
+    signal_score:0
   };
 
-  var _show_yesterday ={};
+  //var _show_yesterday ={};
   var _show_total={};
-  _ctl.show_yesterday =_show_yesterday;
+  //_ctl.show_yesterday =_show_yesterday;
   _ctl.show_total =_show_total;
 
   _ctl.status = _status;
@@ -85,16 +89,41 @@ var controller_rank = function ($scope) {
     // --------------------
 
     _ctl.enter = function (_callback){
+
      $scope.ctl_target.get_yesterday_target_data(function (_target_data) {
 		 $.get($scope.CONFIG.server_url + 'model/max_target.php',function (_max_target_data){
-
-                  _maxtarget = _max_target_data[0].max_target_learn_flashcard;
-          if(_target_data == undefined){
+     $.get($scope.CONFIG.server_url + 'model/rank.php',function (_score_data){
+       console.log(_score_data);
+       var _signal_data=[];
+       for(var i=0;i<5;i++){
+//[{name:xxx,key:1},{name:xxx,key:2}]
+         var _signal_uuid = _score_data[i].uuid;
+         _status.yesterday_uuid=_signal_uuid;
+         var _signal_name = _score_data[i].name;
+         _status.yesterday_name = _signal_name;
+         var _signalscore= _score_data[i].score;
+         _status.signal_score = _signalscore;
+         _signal_data.push(_score_data[i]);
+         //_status.all_data = _status.all_data + '第'+(i+1)+'名'+ '名稱:'+_name+'總分:'+_totalscore+'\n';
+       }
+       _status.signal_data = _signal_data;
+        console.log(_status.signal_data);
+        console.log(_target_data);
+        if(_target_data == undefined){
+          var _maxtarget=0;
+        }else{
+          _maxtarget = _max_target_data[0].max_target_learn_flashcard;
+        }
+        _status.yesterday_max_target = _maxtarget;
+          //_maxtarget = _max_target_data[0].max_target_learn_flashcard;
+          /*if(_target_data == undefined){
+            //_status.yesterday_max_target = 0;
+            console.log(_target_data);
 
           }else {
-            _status.yesterday_max_target = _target_data;
+
             console.log(_status.yesterday_max_target);
-          }
+          }*/
           _status.show_yesterday_data = true;
           _status.show_total_data = false;
           console.log($scope.ctl_target.day+":"+$scope.ctl_target.countinity);
@@ -118,21 +147,37 @@ var controller_rank = function ($scope) {
 
           }
 
-             var _settarget=_target_data.learn_flashcard.target;
+          if(_target_data== undefined){
+            _settarget=0;
+          }else{
+            var _settarget=_target_data.learn_flashcard.target;
+
+          }
+            // var _settarget=_target_data.learn_flashcard.target;
              _status.yesterday_target=_settarget;
 
 
              var _day=$scope.ctl_target.day-1;
              _status.day= _day;
 
+             if(_target_data== undefined){
+               var _settarget=0;
+               var _learndone=0;
+               var _notedone=0;
 
-             var _learndone = _target_data.learn_flashcard.done;
+             }else{
+               var _settarget=_target_data.learn_flashcard.target;
+               var _learndone = _target_data.learn_flashcard.done;
+               var _notedone=_target_data.take_note.done;
+               var _testdone=_target_data.test_select.done
+             }
+             //var _learndone = _target_data.learn_flashcard.done;
              _status.yesterday_done_learn_flashcard=_learndone;
 
-             var _notedone=_target_data.take_note.done;
+             //var _notedone=_target_data.take_note.done;
              _status.yesterday_done_take_note=_notedone;
 
-             var _testdone=_target_data.test_select.done
+             //var _testdone=_target_data.test_select.done
              _status.yesterday_done_test_select = _testdone;
 
 
@@ -180,7 +225,6 @@ var controller_rank = function ($scope) {
              }
 
 
-
       	  app.navi.replacePage("rank.html",{
       	       "animation":"none",
       	       "onTransitionEnd":function(){
@@ -188,29 +232,32 @@ var controller_rank = function ($scope) {
 
 					}
       	       });
-			   });
-          	});
 
+
+			   });
+          });
+          	});
 
       	};
 
 _ctl.total = function (_callback){
       	$.get($scope.CONFIG .server_url + 'model/total.php', function (_total_data){
       	  console.log(_total_data)
-          _status.all_data='';
-
+          //_status.all_data='';
+          var _data=[];
       	  for(var i=0;i<5;i++){
-
+//[{name:xxx,key:1},{name:xxx,key:2}]
       	    var _uuid = _total_data[i].uuid;
             _status.uuid=_uuid;
       	    var _name = _total_data[i].name;
             _status.uuid_name = _name;
             var _totalscore= _total_data[i].total;
             _status.totalscore = _totalscore;
-
-            _status.all_data = _status.all_data + '第'+(i+1)+'名'+ '名稱:'+_name+'總分:'+_totalscore+'\n';
-
+            _data.push(_total_data[i]);
+            //_status.all_data = _status.all_data + '第'+(i+1)+'名'+ '名稱:'+_name+'總分:'+_totalscore+'\n';
           }
+          _status.all_data = _data;
+           console.log(_status.all_data);
           _status.show_yesterday_data = false;
           _status.show_total_data = true;
       	  //console.log(_var.totalscore.uuid)
@@ -220,6 +267,8 @@ _ctl.total = function (_callback){
 
       	       }
       	       });
+
+
           	});
 
 

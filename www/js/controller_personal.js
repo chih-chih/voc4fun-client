@@ -36,8 +36,8 @@ var controller_personal = function ($scope) {
         var  _name = $scope.ctl_profile.status.name;
         //var showname ='<br>名稱:'+_name+'<br>';
         _status.name = _name;
-        
-        var  _yesterday_score = $scope.ctl_rank.yesterday;
+
+        var  _yesterday_score = $scope.ctl_rank.status.yesterday_score;
         //var showyesterdayscore = '<br>昨日分數:'+_yesterday_score+'<br>';
         _status.yesterdayscore = _yesterday_score;
 
@@ -53,7 +53,7 @@ var controller_personal = function ($scope) {
         //var showlearnflashcard='<br>今日單字學習數:'+_learn_flashcard_done+'/'+_learn_flashcard_target+'<br>';
         _status.learnflashcard = (_learn_flashcard_done+'/'+_learn_flashcard_target);
         _status.learnflashcardrate = (_learn_flashcard_done/_learn_flashcard_target).toFixed(2) * 100;
-        
+
         var  _take_note_done = $scope.ctl_target.status.take_note.done;
         var  _take_note_target = $scope.ctl_target.status.take_note.target;
         //var showtakenote='<br>今日單字筆記數:'+_take_note_done+'/'+_take_note_target+'<br>';
