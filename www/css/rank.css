@@ -1,0 +1,6 @@
+#yesterday_rank{
+    max-height: 72vh;
+}
+.page__content {
+    overflow:auto;
+}

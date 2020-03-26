@@ -1001,8 +1001,7 @@ console.log(_recommend_target_data);
                 }
 
                 _recommend_target_data[_i].recommend_target = Math.min(_recommend_target, _ctl.get_max_target(_i));
-                console.log(_recommend_target_data[_i].recommend_target);
-                //console.log(_recomment_target_data[_i].recommend_target);
+
             }   //for (var _i in _target) {
 //指定take_note,test_select = learn_flashcard xxx['take_note'] =
 
@@ -1047,6 +1046,8 @@ console.log(_recommend_target_data);
         }
 
         _var.recommend_target_data = _recommend_target_data;
+        _var.recommend_target_data.take_note.recommend_target = _recommend_target_data.learn_flashcard.recommend_target;
+        _var.recommend_target_data.test_select.recommend_target = _recommend_target_data.learn_flashcard.recommend_target;
 
         // 記錄推薦的目標數字
         $scope.log(_log_file, "_calculate_recommend_target_data()", _recommend_target_data);

@@ -246,6 +246,8 @@ _ctl.total = function (_callback){
       	  console.log(_total_data)
           //_status.all_data='';
           var _data=[];
+
+        
       	  for(var i=0;i<5;i++){
 //[{name:xxx,key:1},{name:xxx,key:2}]
       	    var _uuid = _total_data[i].uuid;
@@ -256,6 +258,7 @@ _ctl.total = function (_callback){
             _status.totalscore = _totalscore;
             _data.push(_total_data[i]);
             //_status.all_data = _status.all_data + '第'+(i+1)+'名'+ '名稱:'+_name+'總分:'+_totalscore+'\n';
+
           }
           _status.all_data = _data;
            console.log(_status.all_data);

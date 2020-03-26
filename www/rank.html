@@ -21,7 +21,7 @@
 
     </ons-toolbar>
 
-    <ons-list modifiew="inset" ng-show="ctl_rank.status.show_yesterday_data===true">
+    <ons-list modifiew="inset" ng-show="ctl_rank.status.show_yesterday_data===true" id="yesterday_rank">
 
       <ons-list-header>昨日統計</ons-list-header>
       <ons-list-item>昨日得分:{{ctl_rank_view.status.yesterday_score}}</ons-list-item>
@@ -87,51 +87,9 @@
     <ons-list-item>第五名:{{ctl_rank.status.all_data[4].name}} 總分:{{ctl_rank.status.all_data[4].total}}</ons-list-item>
 
 
-
     </ons-list>
 
-	<!--ons-template id="score.html">
 
-
-		<p style="text-align: center;">
-
-		  <div class="right"
-             ng-show="!CONFIG.control_group_version">
-			 昨日得分:{{(ctl_rank.var.yesterday_target_data.learn_flashcard.done/ctl_rank.var.yesterday_target_data.learn_flashcard.target*0.2+ctl_rank.var.yesterday_target_data.test_select.done/ctl_rank.var.yesterday_target_data.learn_flashcard.target*0.5)*100}}
-			<br>
-            單字學習完成率:{{ctl_rank.var.yesterday_target_data.learn_flashcard.done/ctl_rank.var.yesterday_target_data.learn_flashcard.target}}
-            <br>
-			單字筆記完成率:{{ctl_rank.var.yesterday_target_data.take_note.done/ctl_rank.var.yesterday_target_data.learn_flashcard.target}}
-            <br>
-			單字測驗完成率:{{ctl_rank.var.yesterday_target_data.test_select.done/ctl_rank.var.yesterday_target_data.learn_flashcard.target}}
-            <br>
-            設定目標:{{ ctl_rank.var.yesterday_target_data.learn_flashcard.target }}
-            <br>
-            完成學習單字:{{ ctl_rank.var.yesterday_target_data.learn_flashcard.done }}
-            <br>
-            完成筆記數:{{ ctl_rank.var.yesterday_target_data.take_note.done }}
-            <br>
-            完成測驗量:{{ ctl_rank.var.yesterday_target_data.test_select.done }}
-            <br>
-        </div>
-		</p>
-
-
-	</ons-template>
-
-	<ons-template id="score_total.html">
-
-		<p style="text-align: center;">
-		  <div class="right"
-             ng-show="!CONFIG.control_group_version">
-			name:{{ctl_rank.var.totalscore.uuid}}
-			<br>
-			累積得分:{{ctl_rank.var.totalscore.totalscore}}
- 			</div>
-		</p>
-
-
-	</ons-template-->
   <ons-tabbar swipeable position="bottom">
     <ons-tab label=" 昨日得分"
        ng-click="ctl_rank.enter()">

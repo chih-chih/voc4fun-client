@@ -1,0 +1,6 @@
+#rankview{
+    max-height: 72vh;
+}
+.page__content {
+    overflow:auto;
+}

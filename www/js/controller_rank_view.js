@@ -86,7 +86,10 @@ var controller_rank_view = function ($scope) {
         $.get($scope.CONFIG.server_url + 'model/rank.php',function (_score_data){
           console.log(_score_data);
           var _signal_data=[];
-          for(var i=0;i<2;i++){
+          /*if(_score_data==undefined){
+            _status.signal_data = null;
+          }else{
+          for(var i=0;i<5;i++){
        //[{name:xxx,key:1},{name:xxx,key:2}]
             var _signal_uuid = _score_data[i].uuid;
             _status.yesterday_uuid=_signal_uuid;
@@ -97,7 +100,9 @@ var controller_rank_view = function ($scope) {
             _signal_data.push(_score_data[i]);
             //_status.all_data = _status.all_data + '第'+(i+1)+'名'+ '名稱:'+_name+'總分:'+_totalscore+'\n';
           }
+        }*/
           _status.signal_data = _signal_data;
+
            console.log(_status.signal_data);
            console.log(_target_data);
            if(_target_data == undefined){
