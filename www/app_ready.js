@@ -17,8 +17,10 @@ var _app_ready = function ($scope) {
             else {
                 if ($scope.ctl_profile.check_version_match()) {
                     $scope.db_log.sync_init();
-                    $scope.ctl_target.enter_from_profile(false);
-                    //$scope.ctl_rank.enter();
+                    //$scope.ctl_target.enter_from_profile(false);
+                    console.log("app_ready");
+                    $scope.ctl_rank_view.enter();
+                    
 
                 }
                 else {

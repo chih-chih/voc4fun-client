@@ -90,7 +90,7 @@ var controller_rank = function ($scope) {
 
     _ctl.enter = function (_callback){
 
-     $scope.ctl_target.get_yesterday_target_data(function (_target_data) {
+    /* $scope.ctl_target.get_yesterday_target_data(function (_target_data) {
 		 $.get($scope.CONFIG.server_url + 'model/max_target.php',function (_max_target_data){
      $.get($scope.CONFIG.server_url + 'model/rank.php',function (_score_data){
        console.log(_score_data);
@@ -126,7 +126,7 @@ var controller_rank = function ($scope) {
           }*/
           _status.show_yesterday_data = true;
           _status.show_total_data = false;
-          console.log($scope.ctl_target.day+":"+$scope.ctl_target.countinity);
+        /*  console.log($scope.ctl_target.day+":"+$scope.ctl_target.countinity);
           if($scope.ctl_target.day==1 && $scope.ctl_target.countinity==false){
             var _dayscore=0;
           }else if($scope.ctl_target.day==2){
@@ -224,19 +224,20 @@ var controller_rank = function ($scope) {
 
              }
 
-
+*/
       	  app.navi.replacePage("rank.html",{
       	       "animation":"none",
       	       "onTransitionEnd":function(){
 
 
 					}
-      	       });
+        });/*
 
 
 			   });
           });
-          	});
+        });
+        */
 
       	};
 
@@ -261,6 +262,7 @@ _ctl.total = function (_callback){
           _status.show_yesterday_data = false;
           _status.show_total_data = true;
       	  //console.log(_var.totalscore.uuid)
+
       	  app.navi.replacePage("rank.html",{
       	       "animation":"none",
       	       "onTransitionEnd":function(){

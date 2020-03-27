@@ -158,9 +158,9 @@ var controller_profile = function ($scope) {
 
                     _ctl.change_user_name(_status.name);
                     target_help_modal.hide();
-                    //$scope.ctl_target.enter_from_profile();
-                    $scope.ctl_rank.enter();
-
+                    $scope.ctl_target.enter_from_profile();
+                    //$scope.ctl_rank_view.enter();
+                    //console.log("controller_profile1");
                     return this;
                 }else{
                     //執行匯入DB
@@ -191,7 +191,9 @@ var controller_profile = function ($scope) {
                     $scope.log(_log_file, "submit()", _status);
                     _ctl.change_user_name(_status.name);
                     $scope.ctl_target.enter_from_profile();
-                    //$scope.ctl_rank.enter();
+
+                    //$scope.ctl_rank_view.enter();
+                    //console.log("controller_profile");
                     return this;
 
                 }

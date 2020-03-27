@@ -121,6 +121,7 @@ var controller_target = function ($scope) {
      * @param {boolean} _animation 是否要動畫
      */
     _ctl.enter_from_profile = function (_animation) {
+      //$scope.ctl_rank_view.enter();
 
         if (_animation === false) {
             _animation = {
@@ -137,12 +138,16 @@ var controller_target = function ($scope) {
 
         if ($scope.CONFIG.control_group_version === true) {
             _status = _ctl.get_target_data_default();
+            console.log("是走這邊");
             $scope.ctl_activity.enter_from_target();
+
             return this;
         }
 
         if (_ctl.is_all_finish()) {
+          console.log("還是走這邊");
             $scope.ctl_activity.enter_from_target();
+
             return;
         }
         //這邊先讀資料
@@ -152,6 +157,7 @@ var controller_target = function ($scope) {
             _ctl.set_today_done_from_DB('test_select');
 
         });
+
 
         _ctl.period_target_exists(function (_today_exists) {
             _ctl.before_target_exists(-1, function (_yesterday_exists) {
@@ -302,12 +308,14 @@ var controller_target = function ($scope) {
 
                         _ctl.init_recommend_target_data(function () {
                             app.navi.replacePage(_page, _animation);
+                            console.log("跳到哪一頁");
                         });
                     });
                 }
                 else {
                     //$.console_trace(_page, _animation);
                     app.navi.replacePage(_page, _animation);
+                    console.log("跳到哪頁rrrrr");
                 }
             });
         _ctl.get_countinity_data = function(){
@@ -747,7 +755,8 @@ var controller_target = function ($scope) {
             // 如果沒有資料
             $.console_trace("Lost target status");
             //app.navi.replacePage("target_init.html");
-            $scope.ctl_target.enter_from_profile(false);
+            //$scope.ctl_target.enter_from_profile(false);
+            $scope.ctl_rank_view.enter();
         }
     };
 
@@ -992,6 +1001,8 @@ console.log(_recommend_target_data);
                 }
 
                 _recommend_target_data[_i].recommend_target = Math.min(_recommend_target, _ctl.get_max_target(_i));
+                console.log(_recommend_target_data[_i].recommend_target);
+                //console.log(_recomment_target_data[_i].recommend_target);
             }   //for (var _i in _target) {
 //指定take_note,test_select = learn_flashcard xxx['take_note'] =
 

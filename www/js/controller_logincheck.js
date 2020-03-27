@@ -1,9 +1,9 @@
 var controller_logincheck = function ($scope) {
-    
+
     var _ctl = {};
-    
+
     var _log_file = "controller_logincheck.js";
-	 
+
 
     _ctl.init = function (_callback) {
 
@@ -20,13 +20,16 @@ var controller_logincheck = function ($scope) {
             app.navi.replacePage("logincheck.html", {
                     "animation": "none"
                 });
-            
+
         });
 
+    };
+    _ctl.enter_to_learn = function (){
+    
     };
 
 
     // ---------------------
-    
+
     $scope.ctl_logincheck = _ctl;
 };
