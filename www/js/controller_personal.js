@@ -59,13 +59,18 @@ var controller_personal = function ($scope) {
         //var showtakenote='<br>今日單字筆記數:'+_take_note_done+'/'+_take_note_target+'<br>';
         _status.takenote = (_take_note_done+'/'+_take_note_target);
         _status.takenoterate = (_take_note_done/_take_note_target).toFixed(2) * 100;
+        if(_status.takenoterate>100){
+          _status.takenoterate=100;
+        }
 
         var  _test_select_done = $scope.ctl_target.status.test_select.done;
         var  _test_select_target = $scope.ctl_target.status.test_select.target;
         //var showtestselect = '<br>今日單字測驗數:'+_test_select_done+'/'+_test_select_target+'<br>';
         _status.testselect = (_test_select_done+'/'+_test_select_target);
-        _status.testselectrate = (_take_note_done/_take_note_target).toFixed(2) * 100;
-
+        _status.testselectrate = (_test_select_done/_test_select_target).toFixed(2) * 100;
+        if(_status.testselectrate>100){
+          _status.testselectrate=100;
+        }
         //var showall=showname+showyesterdayscore+showloginday+showtarget+showlearnflashcard+showtakenote+showtestselect;
 		//console.log(_learn_flashcard_done+":"+_learn_flashcard_target);
         //console.log(_take_note_done+":"+_take_note_target);

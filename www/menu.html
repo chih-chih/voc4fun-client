@@ -95,12 +95,12 @@
                 單字複習
             </span>
 
-            
+
         </ons-list-item>
 
         <ons-list-item ng-click="ctl_test_select.enter();
             menu_click($event);"
-            ng-class="{'testlimit': (ctl_target.status.learn_flashcard.done < 5)}">
+            ng-class="{'testlimit': (ctl_target.status.learn_flashcard.done < 6)}">
             <ons-icon icon="ion-ios-compose-outline" fixed-width="true"></ons-icon>
             <span class="menu-label">
                 {{ 'TEST_SELECT_TITLE' | translate }}
