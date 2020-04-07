@@ -17,9 +17,9 @@
         <div class="center">
             單字複習列表
         </div>
-        
 
-        
+
+
     </ons-toolbar>
         <ons-button ng-click="ctl_learn_flashcard_review.showtimesort()">
             <ons-icon icon="" class=""></ons-icon>
@@ -33,23 +33,23 @@
                 字母排序 <!-- @TODO 語系 -->
             </div>
         </ons-button>
-    <ons-list modifier="inset" ng-repeat="data in ctl_learn_flashcard_review.groupsortobj" ng-show="ctl_learn_flashcard_review.status.showgroup === true">
+    <ons-list modifier="inset" ng-repeat="data in ctl_learn_flashcard_review.groupsortobj track by $index" ng-show="ctl_learn_flashcard_review.status.showgroup === true">
         <ons-list-header>{{ data.group}}
         </ons-list-header>
-        <ons-list-item ng-repeat="subdata in data.children" ng-click="ctl_learn_flashcard_review.viewcard(subdata.q)">
+        <ons-list-item ng-repeat="subdata in data.children track by $index" ng-click="ctl_learn_flashcard_review.viewcard(subdata.q)">
             <ons-item class="title" >
                 {{ subdata.q }}
             </ons-item>
         </ons-list-item>
     </ons-list>
 
-    <ons-list modifier="inset" ng-repeat="data in ctl_learn_flashcard_review.timesortobj" ng-show="ctl_learn_flashcard_review.status.showtime === true">
+    <ons-list modifier="inset" ng-repeat="data in ctl_learn_flashcard_review.timesortobj track by $index" ng-show="ctl_learn_flashcard_review.status.showtime === true">
         <ons-list-item ng-click="ctl_learn_flashcard_review.viewcard(data.q)">
             <ons-item class="title" >
                 {{ data.q }}
             </ons-item>
         </ons-list-item>
     </ons-list>
-    
+
 
 </ons-page>

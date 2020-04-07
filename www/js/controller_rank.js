@@ -247,15 +247,29 @@ _ctl.total = function (_callback){
           //_status.all_data='';
           var _data=[];
 
-        
       	  for(var i=0;i<5;i++){
 //[{name:xxx,key:1},{name:xxx,key:2}]
-      	    var _uuid = _total_data[i].uuid;
+            if(_total_data.uuid==undefined && _total_data.name==undefined && _total_data.total){
+              var _uuid = 0;
+              _status.uuid=_uuid;
+        	    var _name = 0;
+              _status.uuid_name = _name;
+              var _totalscore= 0;
+              _status.totalscore = _totalscore;
+            }else{
+              var _uuid = _total_data[i].uuid;
+              _status.uuid=_uuid;
+        	    var _name = _total_data[i].name;
+              _status.uuid_name = _name;
+              var _totalscore= _total_data[i].total;
+              _status.totalscore = _totalscore;
+            }
+      	    /*var _uuid = _total_data[i].uuid;
             _status.uuid=_uuid;
       	    var _name = _total_data[i].name;
             _status.uuid_name = _name;
             var _totalscore= _total_data[i].total;
-            _status.totalscore = _totalscore;
+            _status.totalscore = _totalscore;*/
             _data.push(_total_data[i]);
             //_status.all_data = _status.all_data + '第'+(i+1)+'名'+ '名稱:'+_name+'總分:'+_totalscore+'\n';
 

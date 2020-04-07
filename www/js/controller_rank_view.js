@@ -89,14 +89,32 @@ var controller_rank_view = function ($scope) {
 
             for(var i=0;i<5;i++){
          //[{name:xxx,key:1},{name:xxx,key:2}]
-              var _signal_uuid = _score_data[i].uuid;
+              if(_score_data.uuid==undefined && _score_data.name==undefined && _score_data.score==undefined){
+                var _signal_uuid = 0;
+                _status.yesterday_uuid=_signal_uuid;
+                var _signal_name = 0;
+                _status.yesterday_name = _signal_name;
+                var _signalscore= 0;
+                _status.signal_score = _signalscore;
+              }else{
+                var _signal_uuid = _score_data[i].uuid;
+                _status.yesterday_uuid=_signal_uuid;
+                var _signal_name = _score_data[i].name;
+                _status.yesterday_name = _signal_name;
+                var _signalscore= _score_data[i].score;
+                _status.signal_score = _signalscore;
+              }
+              /*var _signal_uuid = _score_data[i].uuid;
               _status.yesterday_uuid=_signal_uuid;
               var _signal_name = _score_data[i].name;
               _status.yesterday_name = _signal_name;
               var _signalscore= _score_data[i].score;
-              _status.signal_score = _signalscore;
+              _status.signal_score = _signalscore;*/
+
               _signal_data.push(_score_data[i]);
+
           }
+
 
 
 

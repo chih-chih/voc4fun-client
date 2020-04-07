@@ -1,4 +1,4 @@
-<ons-page id="learn_flashcard_transition_html" 
+<ons-page id="learn_flashcard_transition_html"
           class="learn-flashcard-page">
     <ons-toolbar>
         <div class="left">
@@ -14,7 +14,7 @@
         </div>
 
         <div class="right" >
-            <span ng-init="_target_data = ctl_target.status.learn_flashcard" 
+            <span ng-init="_target_data = ctl_target.status.learn_flashcard"
                   ng-class="{'target-incompleted': (_target_data.done < _target_data.target), 'target-completed': (ctl_target.is_all_finish('learn_flashcard'))}"
                   ng-show="!CONFIG.control_group_version">
                 <!-- {{ _target_data.done}} / {{ _target_data.target}} -->
@@ -40,7 +40,7 @@
             {{ ctl_learn_flashcard.var.learn_flashcard_transition.a}}
             <ons-icon icon="ion-radio-waves" fixed-width="true" class="speak" ng-show="CONFIG.enable_speak === true"></ons-icon>
         </ons-row>
-        
+
         <ons-row class="side dictionary">
             <ons-col width="20%">
                 <ons-button>
@@ -54,7 +54,7 @@
                 <ons-button>
                     <ons-icon icon="ion-ios-book" fixed-width="true" class="synonym-dictionary" "></ons-icon>
                     <div>
-                        同義字典 <!-- @TODO 語系 -->
+                        劍橋字典 <!-- @TODO 語系 -->
                     </div>
                 </ons-button>
             </ons-col>
@@ -62,9 +62,9 @@
                 <ons-button>
                     <ons-icon icon="ion-ios-book" fixed-width="true" class="radicals-dictionary" ></ons-icon>
                     <div>
-                        字根字典 <!-- @TODO 語系 -->
+                        天火字典 <!-- @TODO 語系 -->
                     </div>
-                </ons-button>	
+                </ons-button>
             </ons-col>
             <ons-col width="20%">
                 <ons-button>
@@ -72,8 +72,8 @@
                     <div>
                         圖片搜尋 <!-- @TODO 語系 -->
                     </div>
-                </ons-button>	
-            </ons-col>			
+                </ons-button>
+            </ons-col>
         </ons-row>
     </div>
 
@@ -93,7 +93,7 @@
     <ons-tabbar>
         <ons-tab label="{{ 'LEARN_FLASHCARD_GO_PREV' | translate }}" icon="ion-arrow-up-b"
                  ng-show="(ctl_learn_flashcard.status.history_index > 0)"></ons-tab>
-        <ons-tab label="{{ 'LEARN_FLASHCARD_GO_TEST' | translate }}" icon="ion-ios-compose" 
+        <ons-tab label="{{ 'LEARN_FLASHCARD_GO_TEST' | translate }}" icon="ion-ios-compose"
                  ng-show="(ctl_activity.is_learn_enough() === true)"></ons-tab>
         <ons-tab label="{{ 'LEARN_FLASHCARD_GO_NEXT' | translate }}" icon="ion-arrow-down-b" active="true"></ons-tab>
     </ons-tabbar>

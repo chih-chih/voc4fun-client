@@ -27,7 +27,7 @@ var controller_test_select = function ($scope) {
         "correct": 0,
         "flashcard_id": 0
     };
-    
+
     _var.show_note = false;
 
     _ctl.var = _var;
@@ -61,20 +61,30 @@ var controller_test_select = function ($scope) {
     // --------------------
     _ctl.display_test_select_target = function(){
         if($scope.ctl_target.status.learn_flashcard.done <= 5){
-            
+
         }else{
             return;
         }
     }
 
     _ctl.enter = function (_callback, _do_animation) {
-        if($scope.ctl_target.status.learn_flashcard.done < 4){
+        if($scope.ctl_target.status.learn_flashcard.done < 5){
             alert('提醒:需先完成5個學習單字才可測驗');
+            return;
+        }
+        if($scope.ctl_target.status.test_select.done == $scope.ctl_target.status.test_select.target){
+            alert('提醒:今天單字學完了');
+            app.navi.replacePage("learn_flashcard_review_list.html",{
+        	       "animation":"none",
+        	       "onTransitionEnd":function(){
+
+        	       }
+        	       });
             return;
         }
         // 讓選單保持在選取的狀態
         $scope.ons_view.active_menu(3);
-        
+
         return _ctl.next(_callback, _do_animation);
     };
 
@@ -83,7 +93,7 @@ var controller_test_select = function ($scope) {
             _do_animation = _callback;
             _callback = undefined;
         }
-        
+
         var _do_callback = function () {
             _ctl.setup_hint();
             $.trigger_callback(_callback);
@@ -102,9 +112,9 @@ var controller_test_select = function ($scope) {
             }
             else {
                 _var.test_select = _test;
-                
+
                 ons.digest();
-                
+
                 app.navi.replacePage("test_select.html", {
                     "animation": "none",
                     "onTransitionEnd": _do_callback
@@ -113,7 +123,7 @@ var controller_test_select = function ($scope) {
         });
 
     };
-    
+
     _ctl.setup_hint = function () {
         var _note = _var.test_select.note;
         var _hint = $(".test-select-page .hint");
@@ -187,11 +197,11 @@ var controller_test_select = function ($scope) {
         }
 
         $scope.db_status.save_status(_status_key);
-        
+
         // 不管答案正不正確，都發出聲音
         //$.console_trace(_test_select.options[_test_select.correct].q);
         //$scope.ctl_activity.speak(_test_select.options[_test_select.correct].q, 'en')
-        
+
         return this;
     };
 
@@ -210,10 +220,10 @@ var controller_test_select = function ($scope) {
                 && _status.stack[0] === _test_select.flashcard_id) {
             _status.stack = [];
         }
-        
+
         // 把這個動作加入history stack中
         _ctl.add_history_stack(_test_select.flashcard_id);
-        
+
         return this;
     };
 
@@ -221,14 +231,14 @@ var controller_test_select = function ($scope) {
         var _test_select = _var.test_select;
         $scope.ctl_learn_flashcard.status.review_stack.push(_test_select.flashcard_id);
         _status.stack.push(_test_select.flashcard_id);
-        
+
         // 把答錯的選項也加入待答的範圍
         var _answer = _test_select.answer;
         var _answered_option_flashcard_id = _test_select.options[_answer].id;
         //$scope.ctl_learn_flashcard.status.review_stack.push(_answered_option_flashcard_id);
         $scope.ctl_learn_flashcard.add_incorrect_answer_to_review_stack(_answered_option_flashcard_id);
         _status.stack.push(_answered_option_flashcard_id);
-        
+
         _status.stack = $.array_merge_if_same(_status.stack);
     };
 
@@ -259,11 +269,11 @@ var controller_test_select = function ($scope) {
     };
 
     var _option_length = $scope.CONFIG.test_select_option_learn;
-    
+
     _ctl.get_test_flashcard = function (_callback) {
         _var.show_note = false;
         var _qualifier = "review";
-        
+
         var _test_select = _var.test_select;
         // 從陣列中讀取
 
@@ -292,9 +302,9 @@ var controller_test_select = function ($scope) {
 //            _test_select.note = "";
 //            $.console_trace("note", _test_select.note);
 //            $scope.$digest();
-            
+
             //_test_select.note = "AAA";
-            
+
             _options.push(_flashcard);
 
             $scope.ctl_flashcard.get_other_flashcards(
@@ -333,7 +343,7 @@ var controller_test_select = function ($scope) {
         }
         return this;
     };
-    
+
     _ctl.get_tested_count = function () {
         return _status.history_stack.length;
     };

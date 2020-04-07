@@ -56,6 +56,12 @@ var controller_learn_flashcard_review = function ($scope) {
         }
     ];
 
+    _var.list = [];
+    _var.current_index;
+    _var.q;
+    _var.a;
+    _var.note;
+
     _ctl.var = _var;
 
     // ----------------------------------------------
@@ -95,8 +101,8 @@ var controller_learn_flashcard_review = function ($scope) {
 
     var _groupsortobj = {};
     var _timesortobj = {};
-    _ctl.groupsortobj = _groupsortobj;    
-    _ctl.timesortobj = _timesortobj;    
+    _ctl.groupsortobj = _groupsortobj;
+    _ctl.timesortobj = _timesortobj;
 
     // -----------------------------------------
 
@@ -106,7 +112,7 @@ var controller_learn_flashcard_review = function ($scope) {
         _ctl.init(function () {
             //$.console_trace("enter");
 
-            
+
         });
     };
 
@@ -120,30 +126,37 @@ var controller_learn_flashcard_review = function ($scope) {
         _qualifier = "history";
         $scope.db_log.get_log({
                   file_name:'controller_learn_flashcard.js',
-                  function_name: "next()",                          
+                  function_name: "next()",
                   callback:
                   function(_data){
                     console.log(_data);
                     _ctl.set_history_flashcard(function (_flashcard) {
                         //_var.learn_flashcard = _flashcard;
                         var _review_card = [];
+                        var keys=[];
                         for(var i in _data){
                             _review_data = $.json_parse(_data[i].data);
                             _review_word = _review_data.flashcard_q;
                             _review_time = $.json_parse(_data[i].timestamp);
+                            _review_key = _review_data.flashcard_index;
                             for(var a in _flashcard){
                                 if(_flashcard[a] != undefined){
                                     if(_review_word == _flashcard[a].q){
                                         _d = _flashcard[a];
                                         _d.timestamp = _review_time;
-                                        _review_card.push(_flashcard[a])
+                                        /*var key = _flashcard[key];
+                                        if(_review_word == _review_word){
+                                          keys.push(key);
+                                          _review_card.push(_flashcard[a]);
+                                        }*/
+                                        _review_card.push(_flashcard[a]);
                                     }
                                 }
                             }
                         }
                         _status.review_card = _review_card;
                         _var.learn_flashcard = _status.review_card[0];
-                        _status.review_card_index = 1;                        
+                        _status.review_card_index = 1;
                         app.navi.replacePage("learn_flashcard_review_list.html", {
                             "animation": "none"
                         });
@@ -154,7 +167,7 @@ var controller_learn_flashcard_review = function ($scope) {
                     //_ctl.other_note_ajax();
                     $scope.log(_log_file, "init()", _qualifier, _status);
                   }
-              })        
+              })
     };
 
     _ctl.viewcard = function (wordcard) {
@@ -241,7 +254,7 @@ var controller_learn_flashcard_review = function ($scope) {
                 $.trigger_callback(_callback);
             }
         };
-        
+
         if(_status.review_card_index < (_status.review_card).length){
             _status.review_card_index ++;
             var _now_key = _status.review_card_index;
@@ -249,7 +262,7 @@ var controller_learn_flashcard_review = function ($scope) {
             _trans_callback(_flashcard);
         }else{
 
-        }        
+        }
     };
 
     var _page = "learn_flashcard_review.html";
@@ -295,9 +308,9 @@ var controller_learn_flashcard_review = function ($scope) {
             });
         }else{
 
-        }      
-    };  
-        
+        }
+    };
+
     _ctl._transition_prev = function (_flashcard, _callback) {
         $scope.ons_view.transition_prev({
             "page": _page,
@@ -314,7 +327,23 @@ var controller_learn_flashcard_review = function ($scope) {
         });
     };
 
+  /*  _ctl.view = function (_index) {
+        _var.current_index = _index;
+        _var.q = _var.list[_index].q;
+        _var.a = _var.list[_index].a;
+        _var.note = _var.list[_index].note;
 
+        $scope.log(_log_file_name, "view", _var.q, _var.list[_index]);
+
+        var _flashcard = $scope.ctl_flashcard.find_flashcard(_var.q);
+        _var.flashcard_id = _flashcard.id;
+
+            app.navi.pushPage("learn_flashcard_review.html", {
+                onTransitionEnd: function () {
+                    $scope.ctl_note._set_auto_grow($("#note_list_view_html textarea.note"));
+                }
+            });
+    };*/
     // 註冊
     var _status_key = "learn_flashcard";
     _status_init = function () {
@@ -401,7 +430,7 @@ var controller_learn_flashcard_review = function ($scope) {
             _status.flashcard_index++;
         }
         var _id = _status.flashcard_index;
-        
+
         var _flashcard = $scope.ctl_flashcard.get_flashcard(_id);
             if (_flashcard === undefined) {
                 // 表示已經到了最後一列
@@ -453,20 +482,20 @@ var controller_learn_flashcard_review = function ($scope) {
         if (typeof(_var.learn_flashcard.q) !== "string") {
             return;
         }
-        
+
         //var _id = _ctl.get_current_flashcard_id();
 
-        
+
 
         if (typeof($scope.CONFIG.server_url) === "string") {
             var _url = $scope.CONFIG.server_url + "model/note.php";
             setTimeout(function () {
-                
+
                 var _data = {
                     q: _var.learn_flashcard.q,
                     uuid: $scope.ctl_profile.get_uuid()
                 };
-                
+
                 //$.console_trace("現在有筆記嗎？", _var.learn_flashcard.note);
                 var _check_my_note = true;
                 if (typeof (_var.learn_flashcard.note) === "string" && $.trim(_var.learn_flashcard.note) !== "") {
@@ -479,21 +508,21 @@ var controller_learn_flashcard_review = function ($scope) {
                 else {
                     //$.console_trace("沒有資料", [typeof (_var.learn_flashcard.note), _var.learn_flashcard.note]);
                 }
-                
+
                 if (typeof(_data.q) !== "string" || _data.q === "") {
                     _ctl.other_note_ajax(_callback);
                     return;
                 }
-                
+
                 $.getJSON(_url, _data, function (_other_note) {
                     _ctl.set_other_note(_other_note, _check_my_note, _callback);
                 });
             }, 1000);
         }
-            
+
 
     };  //_ctl.other_note_ajax = function (_callback) {
-    
+
     _ctl.set_other_note = function (_notes, _check_my_note, _callback) {
         if (typeof(_notes) === "object" && typeof(_notes.name) === "string") {
             _notes = [_notes];
