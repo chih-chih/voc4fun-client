@@ -37,7 +37,7 @@ var controller_personal = function ($scope) {
         //var showname ='<br>名稱:'+_name+'<br>';
         _status.name = _name;
 
-        var  _yesterday_score = $scope.ctl_rank.status.yesterday_score;
+        var  _yesterday_score = $scope.ctl_rank_view.status.yesterday_score;
         //var showyesterdayscore = '<br>昨日分數:'+_yesterday_score+'<br>';
         _status.yesterdayscore = _yesterday_score;
 
