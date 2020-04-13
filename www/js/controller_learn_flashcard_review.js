@@ -228,6 +228,34 @@ var controller_learn_flashcard_review = function ($scope) {
 
         return sortable;
     }
+    _ctl.view = function (_index) {
+        _var.current_index = _index;
+        _var.q = _var.list[_index].q;
+        _var.a = _var.list[_index].a;
+        _var.note = _var.list[_index].note;
+
+        $scope.log(_log_file_name, "view", _var.q, _var.list[_index]);
+//
+//        var _sql = "SELECT id FROM flashcard WHERE q = " + $scope.DB._escape_value(_var.q);
+//        $scope.DB.exec(_sql, function (_rows) {
+//            _var.flashcard_id = _rows[0].id;
+//
+//            app.navi.pushPage("note_list_view.html", {
+//                onTransitionEnd: function () {
+//                    $scope.ctl_note._set_auto_grow($("#note_list_view_html textarea.note"));
+//                }
+//            });
+//        });
+
+        var _flashcard = $scope.ctl_flashcard.find_flashcard(_var.q);
+        _var.flashcard_id = _flashcard.id;
+
+            app.navi.pushPage("note_list_view.html", {
+                onTransitionEnd: function () {
+                    $scope.ctl_note._set_auto_grow($("#note_list_view_html textarea.note"));
+                }
+            });
+    };
 
     _ctl.next = function (_callback, _do_animation) {
         //var _flashcard = _var._learn_flashcard_mock_b;

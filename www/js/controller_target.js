@@ -1054,16 +1054,11 @@ console.log(_recommend_target_data);
       /*  _var.recommend_target_data = _recommend_target_data;
         _var.recommend_target_data.take_note.recommend_target = _recommend_target_data.learn_flashcard.recommend_target;
         _var.recommend_target_data.test_select.recommend_target = _recommend_target_data.learn_flashcard.recommend_target;*/
-        if(_var.recommend_target_data.learn_flashcard.recommend_target < 5){
-          _var.recommend_target_data = _recommend_target_data;
-          _var.recommend_target_data.learn_flashcard.recommend_target=5;
-          _var.recommend_target_data.take_note.recommend_target = _recommend_target_data.learn_flashcard.recommend_target;
-          _var.recommend_target_data.test_select.recommend_target = _recommend_target_data.learn_flashcard.recommend_target;
-        }else{
+
           _var.recommend_target_data = _recommend_target_data;
           _var.recommend_target_data.take_note.recommend_target = _recommend_target_data.learn_flashcard.recommend_target;
           _var.recommend_target_data.test_select.recommend_target = _recommend_target_data.learn_flashcard.recommend_target;
-        }
+        
         // 記錄推薦的目標數字
         $scope.log(_log_file, "_calculate_recommend_target_data()", _recommend_target_data);
 

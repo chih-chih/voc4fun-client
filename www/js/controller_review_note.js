@@ -1,8 +1,8 @@
-var controller_note = function ($scope) {
+var controller_review_note = function ($scope) {
 
     var _ctl = {};
 
-    var _log_file = "controller_note.js";
+    var _log_file = "controller_review_note.js";
 
     // ------------------------------
 
@@ -50,7 +50,7 @@ _ctl.var = _var;
 //        _var.note = $scope.ctl_learn_flashcard.var.learn_flashcard.note;
 //        $.console_trace(_var.note);
 //        $scope.$digest();
-    
+
         app.navi.pushPage(
                 "note.html",
                 {"onTransitionEnd": function (_event) {
@@ -110,21 +110,7 @@ _ctl.var = _var;
         return this;
     };
 
-    _ctl.check_note_edited = function (_id) {
-        if (_id === undefined) {
-            _id = $scope.ctl_learn_flashcard.get_current_flashcard_id();
-        }
 
-        if ($.inArray(_id, _status.history) === -1) {
-            _status.history.push(_id);
-
-            $scope.db_status.save_status(_status_key);
-            //$.console_trace(_status.history);
-            $scope.ctl_target.done_plus("take_note");
-        }
-
-        return this;
-    };
 
     _ctl.save_note_to_db = function (_note) {
         $scope.ctl_learn_flashcard.var.learn_flashcard.note = _note;
@@ -151,6 +137,6 @@ _ctl.var = _var;
 
     // -------------------------------
 
-    $scope.ctl_note = _ctl;
+    $scope.ctl_review_note = _ctl;
 
 };
