@@ -59,7 +59,11 @@ var controller_rank_view = function ($scope) {
     signal_data:[],
     yesterday_uuid:1,
     yesterday_name:1,
-    signal_score:0
+    signal_score:0,
+    self_name:1,
+    self_uuid:1,
+    self_score:0,
+    self_data:[]
   };
 
   //var _show_yesterday ={};
@@ -84,6 +88,7 @@ var controller_rank_view = function ($scope) {
         $scope.ctl_target.get_yesterday_target_data(function (_target_data) {
         $.get($scope.CONFIG.server_url + 'model/max_target.php',function (_max_target_data){
         $.get($scope.CONFIG.server_url + 'model/rank.php',function (_score_data){
+          $.get($scope.CONFIG.server_url + 'model/rank_personal.php',function (_personal_data){
           console.log(_score_data);
           var _signal_data=[];
 
@@ -114,14 +119,36 @@ var controller_rank_view = function ($scope) {
               _signal_data.push(_score_data[i]);
 
           }
-
-
-
-
           _status.signal_data = _signal_data;
 
            console.log(_status.signal_data);
            console.log(_target_data);
+           console.log(_personal_data);
+           var _self_data=[];
+           if(_personal_data==undefined){
+             var _self_uuid = 0;
+             _status.self_uuid=_self_uuid;
+             var _self_name = 0;
+             _status.self_name = _self_name;
+             var _self_score= 0;
+             _status.self_score = _self_score;
+             _self_data.push(_personal_data);
+             _status.self_data = _self_data;
+
+           }else{
+             var _self_uuid = _personal_data.uuid;
+             _status.self_uuid=_self_uuid;
+             var _self_name = _personal_data.name;
+             _status.self_name = _self_name;
+             var _self_score= _personal_data.score;
+             _status.self_score = _self_score;
+             _self_data.push(_personal_data);
+             _status.self_data = _self_data;
+           }
+
+
+
+           console.log(_self_data);
            if(_target_data == undefined){
              var _maxtarget=0;
            }else{
@@ -247,6 +274,7 @@ var controller_rank_view = function ($scope) {
                   });
 
 
+            });
             });
              });
                });
