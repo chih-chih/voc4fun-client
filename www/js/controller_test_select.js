@@ -68,8 +68,8 @@ var controller_test_select = function ($scope) {
     }
 
     _ctl.enter = function (_callback, _do_animation) {
-        if($scope.ctl_target.status.learn_flashcard.done < 5){
-            alert('提醒:需先完成5個學習單字才可測驗');
+        if($scope.ctl_target.status.learn_flashcard.target != $scope.ctl_target.status.learn_flashcard.done){
+            alert('提醒:單字學習完成數需先達到設定目標單字數量才可測驗');
             return;
         }
         if($scope.ctl_target.status.test_select.done == $scope.ctl_target.status.test_select.target){

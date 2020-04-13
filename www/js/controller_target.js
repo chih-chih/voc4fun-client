@@ -567,8 +567,8 @@ var controller_target = function ($scope) {
                 if (_target > _max) {
                     _target = _max;
                 }
-                else if (_target < 1) {
-                    _target = 1;
+                else if (_target < 5) {
+                    _target = 5;
                 }
                 else if (isNaN(_target)) {
                     _target = _ctl.get_default_target(_key);
@@ -672,6 +672,12 @@ var controller_target = function ($scope) {
 
             _val = parseInt(_val, 10);
             _val = _val + _interval;
+            if(_val<5){
+              _val = 5 ;
+            }else{
+
+            }
+            console.log(_val);
             var _min = _sele.attr("min");
             var _max = _sele.attr("max");
 
@@ -1045,10 +1051,19 @@ console.log(_recommend_target_data);
             //$.console_trace("set_recommend 1");
         }
 
-        _var.recommend_target_data = _recommend_target_data;
+      /*  _var.recommend_target_data = _recommend_target_data;
         _var.recommend_target_data.take_note.recommend_target = _recommend_target_data.learn_flashcard.recommend_target;
-        _var.recommend_target_data.test_select.recommend_target = _recommend_target_data.learn_flashcard.recommend_target;
-
+        _var.recommend_target_data.test_select.recommend_target = _recommend_target_data.learn_flashcard.recommend_target;*/
+        if(_var.recommend_target_data.learn_flashcard.recommend_target < 5){
+          _var.recommend_target_data = _recommend_target_data;
+          _var.recommend_target_data.learn_flashcard.recommend_target=5;
+          _var.recommend_target_data.take_note.recommend_target = _recommend_target_data.learn_flashcard.recommend_target;
+          _var.recommend_target_data.test_select.recommend_target = _recommend_target_data.learn_flashcard.recommend_target;
+        }else{
+          _var.recommend_target_data = _recommend_target_data;
+          _var.recommend_target_data.take_note.recommend_target = _recommend_target_data.learn_flashcard.recommend_target;
+          _var.recommend_target_data.test_select.recommend_target = _recommend_target_data.learn_flashcard.recommend_target;
+        }
         // 記錄推薦的目標數字
         $scope.log(_log_file, "_calculate_recommend_target_data()", _recommend_target_data);
 

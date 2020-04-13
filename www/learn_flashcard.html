@@ -123,9 +123,9 @@
     -->
 
     <ons-tabbar>
-        <ons-tab label="{{ 'LEARN_FLASHCARD_GO_PREV' | translate }}" icon="ion-arrow-up-b"
+      <!--  <ons-tab label="{{ 'LEARN_FLASHCARD_GO_PREV' | translate }}" icon="ion-arrow-up-b"
                  ng-click="ctl_learn_flashcard.prev();"
-                 ng-show="(ctl_learn_flashcard.status.history_index > 0)"></ons-tab>
+                 ng-show="(ctl_learn_flashcard.status.history_index > 0)"></ons-tab>-->
         <ons-tab label="{{ 'LEARN_FLASHCARD_GO_TEST' | translate }}" icon="ion-ios-compose"
                  ng-show="(ctl_activity.is_learn_enough() === true)"
                  ng-click="ctl_test_select.enter(true);" ></ons-tab>
