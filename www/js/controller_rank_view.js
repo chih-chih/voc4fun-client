@@ -121,7 +121,7 @@ var controller_rank_view = function ($scope) {
              _status.self_uuid=_self_uuid;
 
              _status.self_name = _self_name;
-             
+
              _status.self_score = _self_score;
 
            }else{
@@ -192,7 +192,7 @@ var controller_rank_view = function ($scope) {
                   var _settarget=0;
                   var _learndone=0;
                   var _notedone=0;
-
+                  var _testdone=0;
                 }else{
                   var _settarget=_target_data.learn_flashcard.target;
                   var _learndone = _target_data.learn_flashcard.done;

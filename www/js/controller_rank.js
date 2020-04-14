@@ -249,7 +249,7 @@ _ctl.total = function (_callback){
 
       	  for(var i=0;i<5;i++){
 //[{name:xxx,key:1},{name:xxx,key:2}]
-            if(_total_data.uuid==undefined && _total_data.name==undefined && _total_data.total){
+            if(_total_data.uuid==undefined && _total_data.name==undefined && _total_data.total==undefined){
               var _uuid = 0;
               _status.uuid=_uuid;
         	    var _name = 0;

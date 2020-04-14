@@ -91,11 +91,19 @@
     </div>
 
     <ons-tabbar>
-        <ons-tab label="{{ 'LEARN_FLASHCARD_GO_PREV' | translate }}" icon="ion-arrow-up-b"
-                 ng-show="(ctl_learn_flashcard.status.history_index > 0)"></ons-tab>
+      <!--  <ons-tab label="{{ 'LEARN_FLASHCARD_GO_PREV' | translate }}" icon="ion-arrow-up-b"
+                 ng-click="ctl_learn_flashcard.prev();"
+                 ng-show="(ctl_learn_flashcard.status.history_index > 0)"></ons-tab>-->
         <ons-tab label="{{ 'LEARN_FLASHCARD_GO_TEST' | translate }}" icon="ion-ios-compose"
-                 ng-show="(ctl_activity.is_learn_enough() === true)"></ons-tab>
-        <ons-tab label="{{ 'LEARN_FLASHCARD_GO_NEXT' | translate }}" icon="ion-arrow-down-b" active="true"></ons-tab>
+                 ng-show="(ctl_activity.is_learn_enough() === true)"
+
+                 ng-click="ctl_test_select.enter(true);" ></ons-tab>
+        <ons-tab label="{{ 'LEARN_FLASHCARD_GO_NEXT' | translate }}" icon="ion-arrow-down-b"
+                 ng-click="ctl_learn_flashcard.next();"
+                 ng-hide="(ctl_activity.is_learn_enough() === true)"></ons-tab>
+        <ons-tab label="{{ '單字複習' | translate }}" icon="ion-arrow-down-b"
+                 ng-show="(ctl_activity.is_learn_enough() === true)"
+                 ng-click="ctl_learn_flashcard_review.init()"></ons-tab>
     </ons-tabbar>
 
 </ons-page>

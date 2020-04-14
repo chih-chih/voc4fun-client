@@ -261,7 +261,7 @@ var controller_profile = function ($scope) {
             //alert(_status.uuid);
             $scope.db_status.save_status(_status_key);
 
-            ons.notification.alert({
+          /*  ons.notification.alert({
                 title: "新版本啟用通知",  // @TODO 語系
                 message: $scope.CONFIG.version_message,
                 callback: function () {
@@ -269,7 +269,7 @@ var controller_profile = function ($scope) {
                     //alert("重設完畢");
                     location.reload();
                 }
-            });
+            });*/
 
         });
 
