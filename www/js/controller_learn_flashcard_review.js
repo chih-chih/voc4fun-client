@@ -96,7 +96,7 @@ var controller_learn_flashcard_review = function ($scope) {
         showtime : false
 
     };
-
+    _status.history = [];
     _ctl.status = _status;
 
     var _groupsortobj = {};
@@ -105,10 +105,24 @@ var controller_learn_flashcard_review = function ($scope) {
     _ctl.timesortobj = _timesortobj;
 
     // -----------------------------------------
+    var _status_key = "editnote";
+    _init_status = function () {
+        return $scope.db_status.add_listener(
+                _status_key,
+                function (_s) {
+                    _ctl.status = _s;
+                    _status = _s;
+                },
+                function () {
+                    return _status;
+                });
+    };
+    _init_status();
 
     _ctl.enter = function () {
         // 讓選單保持在選取的狀態
         $scope.ons_view.active_menu(1);
+
         _ctl.init(function () {
             //$.console_trace("enter");
 
@@ -184,32 +198,74 @@ var controller_learn_flashcard_review = function ($scope) {
                         });
     }
     _ctl.editnote = function(){
-  /*$.get($scope.CONFIG.server_url + 'model/note_all.php',function (_note_data){
-    if(_note_data.uuid==$scope.ctl_profile.status.uuid _note.q=_status.review_card[a]){
-      顯示note
+  $.get($scope.CONFIG.server_url + 'model/note_all.php',function (_note_data){
+    if(_note_data.q==_var.learn_flashcard){
+      _var.learn_flashcard.note=_note_data.note;
     }else{
-      空
+
     }
-    console.log($scope.ctl_profile.status.uuid);
-console.log(_note_data);
+
             app.navi.replacePage("review_note_edit.html", {
                                 "animation": "none"
                             });
 
-              });*/
-              app.navi.replacePage("review_note_edit.html", {
+              });
+
+    }
+   _ctl.submit = function($event){
+
+     var _note = $scope.ctl_learn_flashcard_review.var.learn_flashcard.note;
+     _note = $.trim(_note);
+
+     if (_note !== "" && $scope.ctl_learn_flashcard_review.var.learn_flashcard.note !== _note) {
+         _ctl.save_note_to_db(_note);
+
+         if (_note !== "") {
+             _ctl.check_note_edited();
+         }
+     }
+
+    app.navi.replacePage("learn_flashcard_review.html", {
                                   "animation": "none"
                               });
-    }
-   _ctl.submit = function(){
-
-
-  /*  app.navi.replacePage("learn_flashcard_review.html", {
-                                  "animation": "none"
-                              });*/
 
 
     }
+    _ctl.check_note_edited = function (_id) {
+        if (_id === undefined) {
+            _id = $scope.ctl_learn_flashcard.get_current_flashcard_id();
+        }
+
+        if ($.inArray(_id, _status.history) === -1) {
+            _status.history.push(_id);
+
+            $scope.db_status.save_status(_status_key);
+            //$.console_trace(_status.history);
+            $scope.ctl_target.done_plus("take_note");
+        }
+
+        return this;
+    };
+
+    _ctl.save_note_to_db = function (_note) {
+        $scope.ctl_learn_flashcard_review.var.learn_flashcard.note = _note;
+
+        var _learn_flashcard = _var.learn_flashcard;
+        var _q = _learn_flashcard.q;
+        $scope.log(_log_file, "submit()", _q, {
+            q: _q,
+            a: _learn_flashcard.a,
+            note: _learn_flashcard.note
+        });
+        //$scope.db_status.save_status("learn_flashcard");
+
+        var _id = $scope.ctl_learn_flashcard.get_current_flashcard_id();
+        //$.console_trace(_id, _note);
+        $scope.ctl_flashcard.set_note(_id, _note);
+
+        return this;
+    };
+
 
     _ctl.backlist = function (wordcard) {
         app.navi.replacePage("learn_flashcard_review_list.html", {
@@ -521,7 +577,6 @@ console.log(_note_data);
                 else {
                     //$.console_trace("沒有資料", [typeof (_var.learn_flashcard.note), _var.learn_flashcard.note]);
                 }
-                console.log(_var.learn_flashcard.note);
                 //console.log(_data.q);
                 if (typeof(_data.q) !== "string" || _data.q === "") {
                     _ctl.other_note_ajax(_callback);
@@ -532,6 +587,7 @@ console.log(_note_data);
                     _ctl.set_other_note(_other_note, _check_my_note, _callback);
                 });
             }, 1000);
+            console.log(_url);
         }
 
 
