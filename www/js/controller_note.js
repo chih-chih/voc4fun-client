@@ -12,15 +12,6 @@ var controller_note = function ($scope) {
 //
 //    _ctl.var = _var;
 
-var _var = {};
-
-_var.list = [];
-_var.current_index;
-_var.q;
-_var.a;
-_var.note;
-
-_ctl.var = _var;
 
     // ------------------------------
 
@@ -50,7 +41,7 @@ _ctl.var = _var;
 //        _var.note = $scope.ctl_learn_flashcard.var.learn_flashcard.note;
 //        $.console_trace(_var.note);
 //        $scope.$digest();
-    
+
         app.navi.pushPage(
                 "note.html",
                 {"onTransitionEnd": function (_event) {

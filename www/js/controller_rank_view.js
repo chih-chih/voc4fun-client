@@ -192,7 +192,7 @@ var controller_rank_view = function ($scope) {
                   var _settarget=0;
                   var _learndone=0;
                   var _notedone=0;
-                  var _testdone=0;
+
                 }else{
                   var _settarget=_target_data.learn_flashcard.target;
                   var _learndone = _target_data.learn_flashcard.done;
@@ -248,7 +248,7 @@ var controller_rank_view = function ($scope) {
                 if(_testdone == 0 && _notedone == 0 && _testdone == 0 && _settarget == 0){
                   _status.yesterday_score = 0;
                 }else{
-                  _status.yesterday_score= Math.round((((_learndone/_settarget*(_settarget/_maxtarget)*0.2+_notedone/_settarget*(_settarget/_maxtarget)*0.3+_testdone/_settarget*(_settarget/_maxtarget)*0.5))*100+_dayscore));
+                  _status.yesterday_score= Math.round(((_learndone/_settarget*_settarget/_maxtarget*0.2+_notedone/_settarget*_settarget/_maxtarget*0.3+_testdone/_settarget*_settarget/_maxtarget*0.5)*100)+_dayscore);
 
                 }
 

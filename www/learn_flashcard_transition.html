@@ -101,7 +101,7 @@
         <ons-tab label="{{ 'LEARN_FLASHCARD_GO_NEXT' | translate }}" icon="ion-arrow-down-b"
                  ng-click="ctl_learn_flashcard.next();"
                  ng-hide="(ctl_activity.is_learn_enough() === true)"></ons-tab>
-        <ons-tab label="{{ '單字複習' | translate }}" icon="ion-arrow-down-b"
+        <ons-tab label="{{ '單字複習' | translate }}" icon="ion-ios-browsers-outline"
                  ng-show="(ctl_activity.is_learn_enough() === true)"
                  ng-click="ctl_learn_flashcard_review.init()"></ons-tab>
     </ons-tabbar>

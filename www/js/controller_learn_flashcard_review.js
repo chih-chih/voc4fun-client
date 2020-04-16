@@ -164,7 +164,7 @@ var controller_learn_flashcard_review = function ($scope) {
                         _ctl.timesortobj = _ctl.timesort(_status.review_card);
                         $.trigger_callback(_callback);
                     });
-                    //_ctl.other_note_ajax();
+                    _ctl.other_note_ajax();
                     $scope.log(_log_file, "init()", _qualifier, _status);
                   }
               })
@@ -176,20 +176,38 @@ var controller_learn_flashcard_review = function ($scope) {
                 _var.learn_flashcard = _status.review_card[a];
             }
         }
-        console.log(wordcard);
         console.log(_var.learn_flashcard);
+      console.log(wordcard);
+      console.log(_status.review_card);
         app.navi.replacePage("learn_flashcard_review.html", {
                             "animation": "none"
                         });
     }
     _ctl.editnote = function(){
-      for(var a in _status.review_card){
-          if(_status.review_card[a].q == _var.learn_flashcard){
+  /*$.get($scope.CONFIG.server_url + 'model/note_all.php',function (_note_data){
+    if(_note_data.uuid==$scope.ctl_profile.status.uuid _note.q=_status.review_card[a]){
+      顯示note
+    }else{
+      空
+    }
+    console.log($scope.ctl_profile.status.uuid);
+console.log(_note_data);
             app.navi.replacePage("review_note_edit.html", {
                                 "animation": "none"
                             });
-          }
-      }
+
+              });*/
+              app.navi.replacePage("review_note_edit.html", {
+                                  "animation": "none"
+                              });
+    }
+   _ctl.submit = function(){
+
+
+  /*  app.navi.replacePage("learn_flashcard_review.html", {
+                                  "animation": "none"
+                              });*/
+
 
     }
 
@@ -492,20 +510,19 @@ var controller_learn_flashcard_review = function ($scope) {
                     q: _var.learn_flashcard.q,
                     uuid: $scope.ctl_profile.get_uuid()
                 };
-
+                console.log(_data);
                 //$.console_trace("現在有筆記嗎？", _var.learn_flashcard.note);
                 var _check_my_note = true;
                 if (typeof (_var.learn_flashcard.note) === "string" && $.trim(_var.learn_flashcard.note) !== "") {
-                    //$.console_trace("有資料", [typeof (_var.learn_flashcard.note), _var.learn_flashcard.note]);
-                    //_ctl.var.learn_flashcard.note = "測試看看如何？還是不能用";
-                    //alert(["有資料1", _ctl.var.learn_flashcard.note]);
+
                     _data.uuid = $scope.ctl_profile.get_uuid();
                     _check_my_note = false;
                 }
                 else {
                     //$.console_trace("沒有資料", [typeof (_var.learn_flashcard.note), _var.learn_flashcard.note]);
                 }
-
+                console.log(_var.learn_flashcard.note);
+                //console.log(_data.q);
                 if (typeof(_data.q) !== "string" || _data.q === "") {
                     _ctl.other_note_ajax(_callback);
                     return;

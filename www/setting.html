@@ -1,5 +1,5 @@
-<ons-page id="setting_html" 
-          ng-device-backbutton="main_back()" 
+<ons-page id="setting_html"
+          ng-device-backbutton="main_back()"
           ng-init="profile = ctl_profile.status">
 
     <ons-toolbar ng-click="ctl_setting.toggle_debug_mode($event);">
@@ -37,32 +37,32 @@
                 </ons-col>
             </ons-row>
         </ons-list-item>
-        
-        <ons-list-item modifier="chevron" ng-click="app.navi.pushPage('target_edit.html')" ng-show="!CONFIG.control_group_version">
+
+    <!--    <ons-list-item modifier="chevron" ng-click="app.navi.pushPage('target_edit.html')" ng-show="!CONFIG.control_group_version">
             <ons-icon icon="ion-ios-pie" size="20px"></ons-icon>
             設定目標 <!-- @TODO 語系 -->
-        </ons-list-item>
+      <!--  </ons-list-item> -->
 
         <ons-list-item modifier="chevron" ng-click="app.navi.pushPage('logincheck.html')" ng-show="!CONFIG.control_group_version">
             <ons-icon icon="ion-ios-pie" size="20px"></ons-icon>
             檢視連續學習狀況 <!-- @TODO 語系 -->
         </ons-list-item>
-        
+
         <ons-list-item modifier="chevron" ng-click="ctl_setting.share_app()" style="display:none;">
             <ons-icon icon="ion-android-share-alt" size="20px"></ons-icon>
             {{ 'SHARE_APP' | translate}}
         </ons-list-item>
-        
+
         <ons-list-item modifier="chevron" ng-click="app.navi.pushPage('about.html')">
             <ons-icon icon="ion-information-circled" size="20px"></ons-icon>
             {{ 'ABOUT' | translate}}
         </ons-list-item>
-        
+
         <ons-list-item modifier="chevron" ng-click="ctl_setting.open_log()" ng-show="CONFIG.enable_log">
             <ons-icon icon="ion-pound" size="20px"></ons-icon>
             偵錯記錄 <!-- @TODO 語系 -->
         </ons-list-item>
-        
+
         <ons-list-item modifier="chevron" ng-click="ctl_setting.reset_app()" ng-show="CONFIG.enable_reset">
             <ons-icon icon="ion-refresh" size="20px"></ons-icon>
             重置 <!-- @TODO 語系 -->

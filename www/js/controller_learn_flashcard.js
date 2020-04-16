@@ -1,4 +1,4 @@
-var controller_learn_flashcard = function ($scope) {
+ var controller_learn_flashcard = function ($scope) {
 
     // ------------------------------
 
@@ -455,6 +455,7 @@ var controller_learn_flashcard = function ($scope) {
                 }
 
                 $.getJSON(_url, _data, function (_other_note) {
+                  console.log(_other_note);
                     _ctl.set_other_note(_other_note, _check_my_note, _callback);
                 });
             }, 1000);

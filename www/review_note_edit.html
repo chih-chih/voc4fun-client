@@ -3,7 +3,7 @@
     <ons-toolbar>
 
         <div class="left">
-            <ons-toolbar-button ng-click="app.navi.popPage()">
+            <ons-toolbar-button ng-click="ctl_learn_flashcard_review.viewcard()">
                 <span class="toolbar-button--quiet navigation-bar__line-height" >
                     <i class="ion-android-arrow-back"></i>
                 </span>
@@ -11,25 +11,18 @@
         </div>
 
         <div class="center">
-            {{ ctl_learn_flashcard_review.var.q }} 筆記
+            {{ ctl_learn_flashcard_review.var.learn_flashcard.q}} 筆記
             <!-- @TODO 語系 -->
         </div>
 
-        <div class="right"
-             ng-class="{'target-incompleted': (ctl_target.status.take_note.done < ctl_target.status.take_note.target), 'target-completed': (ctl_target.is_all_finish('take_note'))}"
-             ng-click="ctl_target.enter_for_view()"
-             ng-show="!CONFIG.control_group_version">
-            {{ ctl_target.menu_display_target("take_note", ctl_target.status.take_note.done, ctl_target.status.take_note.target) }}
-            <ons-icon icon="ion-android-star" fixed-width="true"
-                           ng-show="ctl_target.is_all_finish('take_note')"></ons-icon>
-        </div>
+
     </ons-toolbar>
 
     <!-- ==================================== -->
 
     <div class="flashcard"
          style="margin: 0 1rem; border: 1px solid #DDD; border-radius: 4px; text-align: center;">
-        {{ ctl_learn_flashcard_review.var.q}} / {{ ctl_learn_flashcard_review.var.a}}
+        {{ ctl_learn_flashcard_review.var.learn_flashcard.q}} / {{ ctl_learn_flashcard_review.var.learn_flashcard.a}}
     </div>
 
     <div style="max-height: calc(100% - 140px); overflow-y: auto;">
@@ -38,27 +31,28 @@
             <textarea class="note textarea textarea--transparent" placeholder="壓一下撰寫筆記..."
                       ng-keyup="ctl_note.auto_grow($event)"
                       style=" margin:1rem;   padding: 1rem;  border-radius: 4px;border: 1px solid #ddd;
-                      background-color: #f9f9f9; overflow-y: auto;width: 100%;">{{ ctl_learn_flashcard_review.var.note}}</textarea>
+                      background-color: #f9f9f9; overflow-y: auto;width: 100%;">{{ ctl_learn_flashcard_review.var.learn_flashcard.note}}</textarea>
         </ons-row>
 
         <ons-list modifier="inset">
-            <ons-list-item
-                ng-repeat="other_note in ctl_note_list.var.other_note"
-                ng-click="ctl_note.copy(other_note.note, other_note.uuid)"
-                style="cursor: pointer;">
-                <span class="user" style="font-weight: bold;">
-                    {{ other_note.name}}:
-                </span>
+          <ons-list-item
+              ng-repeat="other_note in ctl_learn_flashcard.var.learn_flashcard
+              .other_note"
 
-                <span class="note" style="white-space: pre;">{{ other_note.note}}</span>
-            </ons-list-item>
+              style="cursor: pointer;">
+              <span class="user" style="font-weight: bold;">
+                  {{ other_note.name}}:
+              </span>
+
+              <span class="note" style="white-space: pre;">{{ other_note.note}}</span>
+          </ons-list-item>
         </ons-list>
 
     </div>
 
     <!-- ==================================== -->
 
-    <ons-tabbar ng-click="ctl_note_list.submit($event);">
+    <ons-tabbar ng-click="ctl_learn_flashcard_review.submit()">
         <ons-tab label="{{ 'ONS_SAVE' | translate }}" ></ons-tab>
     </ons-tabbar>
 
