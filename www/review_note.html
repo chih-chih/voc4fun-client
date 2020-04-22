@@ -1,0 +1,62 @@
+<ons-page id="review_note.html" class="review_note" ng-device-backbutton="app.navi.popPage()">
+
+    <ons-toolbar>
+
+        <div class="left">
+            <ons-toolbar-button ng-click="ctl_learn_flashcard_review.viewcard()">
+                <span class="toolbar-button--quiet navigation-bar__line-height" >
+                    <i class="ion-android-arrow-back"></i>
+                </span>
+            </ons-toolbar-button>
+        </div>
+
+        <div class="center">
+            {{ ctl_learn_flashcard_review.var.learn_flashcard.q}} 筆記
+            <!-- @TODO 語系 -->
+        </div>
+
+
+
+    </ons-toolbar>
+
+    <!-- ==================================== -->
+
+    <div class="flashcard"
+         style="margin: 0 1rem; border: 1px solid #DDD; border-radius: 4px; text-align: center;">
+        {{ ctl_learn_flashcard_review.var.learn_flashcard.q}} / {{ ctl_learn_flashcard_review.var.learn_flashcard.a}}
+    </div>
+
+    <div style="max-height: calc(100% - 140px); overflow-y: auto;"
+      onclick="$(this).find('textarea').focus();"
+      onfocus="$(this).find('textarea').focus();">
+        <ons-row>
+            <!-- @TODO 語系 -->
+            <textarea class="review_note textarea textarea--transparent" placeholder="壓一下撰寫筆記..."
+                      autofocus
+                      ng-keyup="ctl_learn_flashcard_review.auto_grow($event)"
+                      style=" margin:1rem;   padding: 1rem;  border-radius: 4px;border: 1px solid #ddd;
+                      background-color: #f9f9f9; overflow-y: auto;width: 100%;">{{ ctl_learn_flashcard_review.var.learn_flashcard.note}}</textarea>
+        </ons-row>
+
+        <ons-list modifier="inset">
+          <ons-list-item
+              ng-repeat="other_note in ctl_learn_flashcard_review.var.learn_flashcard.other_note"
+
+              style="cursor: pointer;">
+              <span class="user" style="font-weight: bold;">
+                  {{ other_note.name}}:
+              </span>
+
+              <span class="note" style="white-space: pre;">{{ other_note.note}}</span>
+          </ons-list-item>
+        </ons-list>
+
+    </div>
+
+    <!-- ==================================== -->
+
+    <ons-tabbar ng-click="ctl_learn_flashcard_review.submit($event)">
+        <ons-tab label="{{ 'ONS_SAVE' | translate }}" ></ons-tab>
+    </ons-tabbar>
+
+</ons-page>

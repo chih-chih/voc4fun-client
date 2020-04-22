@@ -23,16 +23,16 @@ var _app_factory_jquery_utils = function ($scope) {
                 _remote_debug = _remote_debug + ": " + _msg;
             }
         }
-        
+
         //alert(_remote_debug);
-        if ($scope.CONFIG.remote_debug === true 
+        if ($scope.CONFIG.remote_debug === true
                 && typeof($scope.CONFIG.server_url) === "string") {
             var _url = $scope.CONFIG.server_url + "model/debug.php";
             $.post(_url, {
                 "m": _remote_debug
             });
         }
-        
+
     };
 
     $.trigger_callback = function (_callback, _parameter) {
@@ -127,13 +127,14 @@ var _app_factory_jquery_utils = function ($scope) {
 
     $.array_get_random_index = function (_ary) {
         return Math.floor(Math.random() * _ary.length);
+        console.log(_ary);
     };
 
     /**
      * max = 3
      * min = 0
      * math = 1
-     *  
+     *
      */
     $.get_random = function (_min, _max) {
         if (_min !== 0 && _max === undefined) {
@@ -198,6 +199,7 @@ var _app_factory_jquery_utils = function ($scope) {
                 _item = _ary[_index];
             }
         }
+        console.log(_item);
         return _item;
     };
 
@@ -215,7 +217,7 @@ var _app_factory_jquery_utils = function ($scope) {
         }
         return _ary;
     };
-    
+
     $.array_slice_all_element = function (_ele, _ary) {
         while ($.inArray(_ele, _ary) > -1) {
             var _i = $.inArray(_ele, _ary);
@@ -263,7 +265,7 @@ var _app_factory_jquery_utils = function ($scope) {
             }
         }
     };
-    
+
     $.int_to_letters = function (_int) {
         var _code = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$-_.+!*'()".split("");
         //$.console_trace(_code.length);  // 72
@@ -272,18 +274,18 @@ var _app_factory_jquery_utils = function ($scope) {
         while (_int > _code.length - 1) {
             //var _division = Math.floor(_int / _code.length)-1;
             //$.console_trace(_division);
-            
+
             var _mode = _int % _code.length;
             //_mode = _mode - 1;
             _output = _code[_mode] + _output;
-            
+
             _int = (_int - _mode) / _code.length;
         }
         _output = _code[_int] + _output;
         //_output = _output + _code[_int];
         return _output;
     };
-    
+
     $.json_parse = function (_json) {
         if (_json === undefined || typeof(_json) !== "string") {
             return _json;
@@ -298,7 +300,7 @@ var _app_factory_jquery_utils = function ($scope) {
             return _json;
         }
     };
-    
+
     $.array_append = function (_ary1, _ary2) {
         if ($.is_array(_ary1) === false) {
             _ary1 = [];

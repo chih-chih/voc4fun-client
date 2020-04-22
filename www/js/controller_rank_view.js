@@ -88,7 +88,34 @@ var controller_rank_view = function ($scope) {
         $scope.ctl_target.get_yesterday_target_data(function (_target_data) {
         $.get($scope.CONFIG.server_url + 'model/max_target.php',function (_max_target_data){
         $.get($scope.CONFIG.server_url + 'model/rank.php',function (_score_data){
-          $.get($scope.CONFIG.server_url + 'model/rank_personal.php',function (_personal_data){
+          $.get($scope.CONFIG.server_url + 'model/rank_personal.php' +'?uuid='+ $scope.ctl_profile.status.uuid,function (_personal_data){
+            console.log(_personal_data);
+            var _self_data=[];
+            if(_personal_data.uuid==undefined && _personal_data.name==undefined && _personal_data.score==undefined){
+            //  var _self_uuid =0;
+            //  _status.self_uuid=_self_uuid;
+            //  var _self_name =0;
+            //  _status.self_name = _self_name;
+              //var _self_score=0;
+              _status.self_score = 0;
+              //_self_data.push(_personal_data);
+              //_status.self_data = _self_data;
+
+            }else{
+              var _self_uuid = _personal_data[0].uuid;
+              _status.self_uuid=_self_uuid;
+              var _self_name = _personal_data[0].name;
+              _status.self_name = _self_name;
+              var _self_score= _personal_data[0].score;
+              _status.self_score = _self_score;
+              //_self_data.push(_personal_data);
+              //_status.self_data = _self_data;
+
+            }
+            _self_data.push(_personal_data);
+            _status.self_data = _self_data;
+
+            console.log(_status.self_data);
           var _signal_data=[];
 
             for(var i=0;i<5;i++){
@@ -115,28 +142,7 @@ var controller_rank_view = function ($scope) {
           _status.signal_data = _signal_data;
 
            console.log(_personal_data);
-           var _self_data=[];
-           if(_personal_data==undefined){
 
-             _status.self_uuid=_self_uuid;
-
-             _status.self_name = _self_name;
-
-             _status.self_score = _self_score;
-
-           }else{
-             var _self_uuid = _personal_data.uuid;
-             _status.self_uuid=_self_uuid;
-             var _self_name = _personal_data.name;
-             _status.self_name = _self_name;
-             var _self_score= _personal_data.score;
-             _status.self_score = _self_score;
-
-           }
-           _self_data.push(_personal_data);
-           _status.self_data = _self_data;
-
-           console.log(_self_data);
            if(_target_data == undefined){
              var _maxtarget=0;
            }else{
@@ -192,7 +198,7 @@ var controller_rank_view = function ($scope) {
                   var _settarget=0;
                   var _learndone=0;
                   var _notedone=0;
-
+                  var _testdone=0;
                 }else{
                   var _settarget=_target_data.learn_flashcard.target;
                   var _learndone = _target_data.learn_flashcard.done;
@@ -241,7 +247,7 @@ var controller_rank_view = function ($scope) {
                 _status.yesterday_max_target=_maxtarget;
 
                 if(_maxtarget == 0 && _settarget == 0){
-                  _status.yesterday_max_target = 0;
+                  _status.hard_target = 0;
                 }else{
                   _status.hard_target= Math.round(_settarget/_maxtarget*100) ;
                 }

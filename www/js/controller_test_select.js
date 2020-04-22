@@ -38,7 +38,8 @@ var controller_test_select = function ($scope) {
 
     var _status = {
         stack: [],
-        history_stack: []
+        history_stack: [],
+        showhint : true
     };
 
     var _init_status = function () {
@@ -68,20 +69,20 @@ var controller_test_select = function ($scope) {
     }
 
     _ctl.enter = function (_callback, _do_animation) {
-        if($scope.ctl_target.status.learn_flashcard.target != $scope.ctl_target.status.learn_flashcard.done){
-            alert('提醒:單字學習完成數需先達到設定目標單字數量才可測驗');
+        if($scope.ctl_target.status.learn_flashcard.done < 5){
+            alert('提醒:至少學習5個單字才可測驗');
             return;
         }
-        if($scope.ctl_target.status.test_select.done == $scope.ctl_target.status.test_select.target){
+      /*  if($scope.ctl_target.status.test_select.done == $scope.ctl_target.status.test_select.target){
             alert('提醒:今天單字學完了');
             app.navi.replacePage("learn_flashcard_review_list.html",{
         	       "animation":"none",
         	       "onTransitionEnd":function(){
 
         	       }
-        	       });
+               });
             return;
-        }
+        }*/
         // 讓選單保持在選取的狀態
         $scope.ons_view.active_menu(3);
 
@@ -103,9 +104,10 @@ var controller_test_select = function ($scope) {
 
         //var _test = _var._test_select_mock;
         _ctl.get_test_flashcard(function (_test, _mode) {
+
             // 不是在這裡加進去的
             //_ctl.add_history_stack(_test.flashcard_id);
-
+console.log(_test+":"+_mode);
             $scope.log(_log_file, "next()", _mode, _test);
             if (_do_animation === true) {
                 _ctl._transition_next(_test, _do_callback);
@@ -191,9 +193,11 @@ var controller_test_select = function ($scope) {
 
         if (_correct === true) {
             _ctl._give_correct_answer();
+
         }
         else {
             _ctl._give_incorrect_answer();
+
         }
 
         $scope.db_status.save_status(_status_key);
@@ -223,7 +227,8 @@ var controller_test_select = function ($scope) {
 
         // 把這個動作加入history stack中
         _ctl.add_history_stack(_test_select.flashcard_id);
-
+        _status.showhint = true;
+        console.log(_status.showhint);
         return this;
     };
 
@@ -240,6 +245,8 @@ var controller_test_select = function ($scope) {
         _status.stack.push(_answered_option_flashcard_id);
 
         _status.stack = $.array_merge_if_same(_status.stack);
+        _status.showhint = false;
+        console.log(_status.showhint);
     };
 
     _ctl.is_answered = function () {
@@ -278,9 +285,11 @@ var controller_test_select = function ($scope) {
         // 從陣列中讀取
 
         var _flashcard_id;
+        console.log(_flashcard_id);
         if (_status.stack.length > 0) {
             _flashcard_id = $.array_get_random(_status.stack
                     , _test_select.flashcard_id);
+
         }
         else {
             //_flashcard_id = _test_select.flashcard_id;
@@ -292,6 +301,12 @@ var controller_test_select = function ($scope) {
             //$.console_trace("get from history_stack", [_flashcard_id, _test_select.flashcard_id]);
             _qualifier = "history";
         }
+        /*if(_flashcard_id == undefined){
+          _ctl.transition_next();
+        }else{
+
+        }*/
+        console.log(_flashcard_id);
         var _options = [];
 
         $scope.ctl_flashcard.get_flashcard(_flashcard_id, function (_flashcard) {

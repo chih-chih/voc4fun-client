@@ -1,5 +1,5 @@
-<ons-page id="note_list_html" 
-          ng-device-backbutton="main_back()" 
+<ons-page id="note_list_html"
+          ng-device-backbutton="main_back()"
           ng-init="profile = ctl_profile.status">
 
     <ons-toolbar>
@@ -37,7 +37,7 @@
                     {{ note.q }}
                     </div>
                     <div class="a" style="font-size:small;line-height: normal;margin-bottom: 10px;">
-                    {{ ctl_note_list.note_abstract(note.a, 10) }}
+                    {{ ctl_note_list.note_abstract(note.a,10) }}
                     </div>
                 </ons-col>
                 <ons-col class="pre">
@@ -46,9 +46,9 @@
             </ons-row>
         </ons-list-item>
     </ons-list>
-    
-    <div ng-show="ctl_note_list.var.list.length === 0" style="margin:1rem;   
-    padding: 1rem;  
+
+    <div ng-show="ctl_note_list.var.list.length === 0" style="margin:1rem;
+    padding: 1rem;
     text-align: center;">
         <div style="margin:1rem">您還沒有撰寫筆記</div>
         <ons-button ng-click="ctl_learn_flashcard.enter();">

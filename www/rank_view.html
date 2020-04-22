@@ -8,62 +8,63 @@
 
         <div class="center">
           <ons-list modifiew="inset" id="rankview">
-            <ons-list-item>第一名:{{ctl_rank_view.status.signal_data[0].name}} 總分:{{ctl_rank_view.status.signal_data[0].score}}</ons-list-item>
-            <ons-list-item>第二名:{{ctl_rank_view.status.signal_data[1].name}} 總分:{{ctl_rank_view.status.signal_data[1].score}}</ons-list-item>
-            <ons-list-item>第三名:{{ctl_rank_view.status.signal_data[2].name}} 總分:{{ctl_rank_view.status.signal_data[2].score}}</ons-list-item>
-            <ons-list-item>第四名:{{ctl_rank_view.status.signal_data[3].name}} 總分:{{ctl_rank_view.status.signal_data[3].score}}</ons-list-item>
-            <ons-list-item>第五名:{{ctl_rank_view.status.signal_data[4].name}} 總分:{{ctl_rank_view.status.signal_data[4].score}}</ons-list-item>
-            <ons-list-header>我的得分</ons-list-header>
-            <ons-list-item>得分:{{ctl_rank_view.status.yesterday_score}}</ons-list-item>
-            <ons-list-header>昨日統計</ons-list-header>
-            <ons-list-item>昨日得分:{{ctl_rank_view.status.yesterday_score}}</ons-list-item>
-            <ons-list-item>昨日設定目標:{{ctl_rank_view.status.yesterday_target}}</ons-list-item>
-            <ons-list-item>昨日單字學習完成數:{{ctl_rank_view.status.yesterday_done_learn_flashcard}}</ons-list-item>
-            <ons-list-item>昨日單字筆記完成數:{{ctl_rank_view.status.yesterday_done_take_note}}</ons-list-item>
-            <ons-list-item>昨日單字測驗完成數:{{ctl_rank_view.status.yesterday_done_test_select}}</ons-list-item>
+            <ons-list-item><font color="red" size="6">第一名:{{ctl_rank_view.status.signal_data[0].name}} 總分:{{ctl_rank_view.status.signal_data[0].score}}</font></ons-list-item>
+            <ons-list-item><font color="blue" size="5">第二名:{{ctl_rank_view.status.signal_data[1].name}} 總分:{{ctl_rank_view.status.signal_data[1].score}}</font></ons-list-item>
+            <ons-list-item><font color="green" size="4">第三名:{{ctl_rank_view.status.signal_data[2].name}} 總分:{{ctl_rank_view.status.signal_data[2].score}}</font></ons-list-item>
+            <ons-list-item><font  size="3">第四名:{{ctl_rank_view.status.signal_data[3].name}} 總分:{{ctl_rank_view.status.signal_data[3].score}}</font></ons-list-item>
+            <ons-list-item><font  size="3">第五名:{{ctl_rank_view.status.signal_data[4].name}} 總分:{{ctl_rank_view.status.signal_data[4].score}}</font></ons-list-item>
+            <ons-list-header>昨日得分</ons-list-header>
+            <ons-list-item>得分:{{ctl_rank_view.status.self_score}}</ons-list-item>
             <ons-list-header>昨日目標達成難度</ons-list-header>
             <ons-list-item>
               <ons-row>
                 <ons-col >
-                  <div class="w3progress" style="line-height: 2;margin: auto;padding-top: 1%;padding-bottom: 1%;">
+                  <div class="w3-progress-container" style="line-height: 2;margin: auto;padding-top: 1%;padding-bottom: 1%;">
                     <div class="w3-light-grey w3-round">
-                      <div class="w3-container w3-round w3-blue" style="width:{{ctl_rank_view.status.hard_target}}%">{{ctl_rank_view.status.hard_target}}%</div>
+                      <div class="w3-progressbar w3-round w3-blue" style="width:{{ctl_rank_view.status.hard_target}}%">{{ctl_rank_view.status.hard_target}}%</div>
                     </div>
                     </div>
                 </ons-col>
               </ons-row>
             </ons-list-item>
-            <ons-list-header>昨日單字學習達成率</ons-list-header>
+            <ons-list-header>上次學習統計</ons-list-header>
+            <ons-list-item>上次得分:{{ctl_rank_view.status.yesterday_score}}</ons-list-item>
+            <ons-list-item>上次設定目標:{{ctl_rank_view.status.yesterday_target}}</ons-list-item>
+            <ons-list-item>上次單字學習完成數:{{ctl_rank_view.status.yesterday_done_learn_flashcard}}</ons-list-item>
+            <ons-list-item>上次單字筆記完成數:{{ctl_rank_view.status.yesterday_done_take_note}}</ons-list-item>
+            <ons-list-item>上次單字測驗完成數:{{ctl_rank_view.status.yesterday_done_test_select}}</ons-list-item>
+
+            <ons-list-header>上次單字學習達成率</ons-list-header>
             <ons-list-item>
               <ons-row>
                 <ons-col >
-                  <div class="w3progress" style="line-height: 2;margin: auto;padding-top: 1%;padding-bottom: 1%;">
+                  <div class="w3-progress-container" style="line-height: 2;margin: auto;padding-top: 1%;padding-bottom: 1%;">
                     <div class="w3-light-grey w3-round">
-                      <div class="w3-container w3-round w3-blue" style="width:{{ctl_rank_view.status.rate_learn_flashcard}}%">{{ctl_rank_view.status.rate_learn_flashcard}}%</div>
+                      <div class="w3-progressbar w3-round w3-blue" style="width:{{ctl_rank_view.status.rate_learn_flashcard}}%">{{ctl_rank_view.status.rate_learn_flashcard}}%</div>
                     </div>
                     </div>
                 </ons-col>
               </ons-row>
             </ons-list-item>
-            <ons-list-header>昨日單字筆記達成率</ons-list-header>
+            <ons-list-header>上次單字筆記達成率</ons-list-header>
             <ons-list-item>
               <ons-row>
                 <ons-col >
-                  <div class="w3progress" style="line-height: 2;margin: auto;padding-top: 1%;padding-bottom: 1%;">
+                  <div class="w3-progress-container" style="line-height: 2;margin: auto;padding-top: 1%;padding-bottom: 1%;">
                     <div class="w3-light-grey w3-round">
-                      <div class="w3-container w3-round w3-blue" style="width:{{ctl_rank_view.status.rate_take_note}}%">{{ctl_rank_view.status.rate_take_note}}%</div>
+                      <div class="w3-progressbar w3-round w3-blue" style="width:{{ctl_rank_view.status.rate_take_note}}%">{{ctl_rank_view.status.rate_take_note}}%</div>
                     </div>
                     </div>
                 </ons-col>
               </ons-row>
             </ons-list-item>
-            <ons-list-header>昨日單字測驗達成率</ons-list-header>
+            <ons-list-header>上次單字測驗達成率</ons-list-header>
             <ons-list-item>
               <ons-row>
                 <ons-col >
-                  <div class="w3progress" style="line-height: 2;margin: auto;padding-top: 1%;padding-bottom: 1%;">
+                  <div class="w3-progress-container" style="line-height: 2;margin: auto;padding-top: 1%;padding-bottom: 1%;">
                     <div class="w3-light-grey w3-round">
-                      <div class="w3-container w3-round w3-blue" style="width:{{ctl_rank_view.status.rate_test_select}}%">{{ctl_rank_view.status.rate_test_select}}%</div>
+                      <div class="w3-progressbar w3-round w3-blue" style="width:{{ctl_rank_view.status.rate_test_select}}%">{{ctl_rank_view.status.rate_test_select}}%</div>
                     </div>
                     </div>
                 </ons-col>

@@ -1,124 +1,143 @@
 var controller_review_note = function ($scope) {
+
     var _ctl = {};
-    var _log_file_name = "controller_review_note.js";
 
-    // -----------------------------------
+    var _log_file = "controller_review_note.js";
 
-    var _var = {};
+    // ------------------------------
 
-    _var.list = [];
-    _var.current_index;
-    _var.q;
-    _var.a;
-    _var.note;
+//    var _var = {};
+//
+//    _var.note = "AAAAAAAAAAAAAAA";
+//
+//    _ctl.var = _var;
+    // ------------------------------
 
-    _ctl.var = _var;
+    var _status = {};
 
-    // -----------------------------------
+    _status.history = [];
+
+    _ctl.status = _status;
+
+    var _status_key = "review_note";
+    _init_status = function () {
+        return $scope.db_status.add_listener(
+                _status_key,
+                function (_s) {
+                    _ctl.status = _s;
+                    _status = _s;
+                },
+                function () {
+                    return _status;
+                });
+    };
+    _init_status();
+
+    // ------------------------------
 
     _ctl.enter = function () {
-        $scope.log(_log_file_name, "enter()");
+//        _var.note = $scope.ctl_learn_flashcard.var.learn_flashcard.note;
+//        $.console_trace(_var.note);
+//        $scope.$digest();
+$.get($scope.CONFIG.server_url + 'model/note_all.php',function (_note_data){
+  if(_note_data.q==$scope.ctl_learn_flashcard_review.var.learn_flashcard.q){
+    $scope.ctl_learn_flashcard_review.var.learn_flashcard.note=_note_data.note;
+  }else{
 
-        _ctl.init(function () {
-            app.navi.replacePage("note.html", {
-                "animation": "none"
-            });
-        });
-    };
+  }
+  console.log(_note_data);
+  console.log($scope.ctl_learn_flashcard_review.var.learn_flashcard.note);
+  app.navi.pushPage(
+          "review_note.html",
+          {"onTransitionEnd": function (_event) {
+                  var _textarea = $("#review_note.html textarea");
+                  _ctl._set_auto_grow(_textarea);
+                  //alert(_textarea.length);
+                  _textarea.focus();
+                  _textarea.select();
+              }});
+  return this;
 
-    _ctl.init = function (_callback) {
-        var _sql = "SELECT MAX(timestamp) AS timestamp , data FROM log "
-            //+ " WHERE file_name = 'controller_note.js' AND function_name = 'submit()' "
-            + " GROUP BY file_name, function_name, qualifier "
-            + " HAVING file_name = ? AND function_name = ? "
-            + " ORDER BY timestamp DESC ";
-        var _sql_data = [
-            'controller_note.js',
-            'submit()'
-        ];
-        $scope.DB.exec(_sql, _sql_data, function (_rows) {
-            _var.list = [];
-            for (var _i = 0; _i < _rows.length; _i++) {
-                _var.list.push($.json_parse(_rows[_i].data));
-            }
-            //$scope.$digest();
-            ons.digest();
-            $.trigger_callback(_callback);
-        });
-    };
 
-    //var _note_max_length = 10;
-    _ctl.note_abstract = function (_note, _note_max_length) {
-        if (_note.length > _note_max_length) {
-            _note = _note.substr(0, _note_max_length);
-            _note = _note + "...";
-        }
-        return _note;
-    };
-
-    _ctl.view = function (_index) {
-        _var.current_index = _index;
-        console.log(_index);
-        _var.q = _var.list[_index].q;
-        _var.a = _var.list[_index].a;
-        _var.note = _var.list[_index].note;
-
-        $scope.log(_log_file_name, "view", _var.q, _var.list[_index]);
-//
-//        var _sql = "SELECT id FROM flashcard WHERE q = " + $scope.DB._escape_value(_var.q);
-//        $scope.DB.exec(_sql, function (_rows) {
-//            _var.flashcard_id = _rows[0].id;
-//
-//            app.navi.pushPage("note_list_view.html", {
-//                onTransitionEnd: function () {
-//                    $scope.ctl_note._set_auto_grow($("#note_list_view_html textarea.note"));
-//                }
-//            });
-//        });
-
-        var _flashcard = $scope.ctl_flashcard.find_flashcard(_var.q);
-        _var.flashcard_id = _flashcard.id;
-
-            app.navi.pushPage("note.html", {
-                onTransitionEnd: function () {
-                    $scope.ctl_note._set_auto_grow($("#note_list_view_html textarea.note"));
-                }
             });
     };
+
+    _ctl.auto_grow = function ($event) {
+        var _textarea = $($event.target);
+        _ctl._set_auto_grow(_textarea);
+    };
+
+    _ctl._set_auto_grow = function (_textarea) {
+        setTimeout(function () {
+            //_textarea.css("padding", "0");
+            _textarea.css("height", "auto");
+            _textarea.css("height", _textarea.attr("scrollHeight") + "px");
+            //$.console_trace("auto_grow: " + _textarea.attr("scrollHeight"));
+        }, 0);
+    };
+
+
 
     _ctl.submit = function ($event) {
-        var _note = $($event.target).parents("ons-page").eq(0).find("textarea.note").val();
-        _var.list[_var.current_index].note = _note;
+        //alert(1);
+//        var _note = _var.note;
+        //var _note = $("#note_html textarea").val();
+        var _note = $($event.target).parents("ons-page").eq(0).find("textarea.review_note").val();
+        _note = $.trim(_note);
 
-//        var _data = {
-//            note: _note
-//        };
-//        var _where_sql = "q = " + $scope.DB._escape_value(_var.q);
+        if (_note !== "" && $scope.ctl_learn_flashcard.var.learn_flashcard.note !== _note) {
+            _ctl.save_note_to_db(_note);
 
-        // 儲存到資料庫去
-        //$scope.DB.update("flashcard", _data, _where_sql, function () {
-        $scope.ctl_flashcard.set_note(_ctl.get_current_flashcard_id(), _note, function () {
-            $scope.log("controller_note.js", "submit()", _var.q, {
-                q: _var.q,
-                a: _var.a,
-                note: _note
-            });
+            if (_note !== "") {
+                _ctl.check_note_edited();
+            }
+        }
 
-            //var _id = _var.flashcard_id;
-            //$scope.ctl_note.check_note_edited(_id);
+        app.navi.popPage();
+        return this;
+    };
 
-            //$scope.$digest();
-            ons.digest();
+    _ctl.check_note_edited = function (_id) {
+        if (_id === undefined) {
+            _id = $scope.ctl_learn_flashcard.get_current_flashcard_id();
+        }
 
-            app.navi.popPage();
+        if ($.inArray(_id, _status.history) === -1) {
+            _status.history.push(_id);
+
+            $scope.db_status.save_status(_status_key);
+            //$.console_trace(_status.history);
+            $scope.ctl_target.done_plus("take_note");
+        }
+
+        return this;
+    };
+
+    _ctl.save_note_to_db = function (_note) {
+        $scope.ctl_learn_flashcard_review.var.learn_flashcard.note = _note;
+
+        var _learn_flashcard = $scope.ctl_learn_flashcard.var.learn_flashcard;
+        var _q = _learn_flashcard.q;
+        $scope.log(_log_file, "submit()", _q, {
+            q: _q,
+            a: _learn_flashcard.a,
+            note: _learn_flashcard.note
         });
+        //$scope.db_status.save_status("learn_flashcard");
+
+        var _id = $scope.ctl_learn_flashcard.get_current_flashcard_id();
+        //$.console_trace(_id, _note);
+        $scope.ctl_flashcard.set_note(_id, _note);
+
+        return this;
     };
 
-    _ctl.get_current_flashcard_id = function () {
-        return _var.flashcard_id;
+    _ctl.get_noted_count = function () {
+        return _status.history.length;
     };
 
-    // -----------------------------------
+    // -------------------------------
 
     $scope.ctl_review_note = _ctl;
+
 };

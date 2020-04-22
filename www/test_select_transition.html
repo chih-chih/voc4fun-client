@@ -1,4 +1,4 @@
-<ons-page id="test_select_transition_html" 
+<ons-page id="test_select_transition_html"
           class="test-select-page"
           ng-init="_test_select = ctl_test_select.var.test_select_transition">
 
@@ -17,7 +17,7 @@
         </div>
 
         <div class="right"
-             ng-init="_target_data = ctl_target.status.test_select" 
+             ng-init="_target_data = ctl_target.status.test_select"
              ng-class="{'target-incompleted': (_target_data.done < _target_data.target), 'target-completed': (ctl_target.is_all_finish('test_select'))}"
              ng-show="!CONFIG.control_group_version">
             {{ ctl_target.menu_display_target("test_select", _target_data.done, _target_data.target) }}
@@ -27,11 +27,11 @@
     </ons-toolbar>
 
     <div class="question  bg-info">
-        
+
         <ons-icon icon="ion-radio-waves" fixed-width="true" class="speak hide"></ons-icon>
         {{ _test_select.question }}
         <ons-icon icon="ion-radio-waves" fixed-width="true" class="speak" ng-show="CONFIG.enable_speak === true"></ons-icon>
-        
+
     </div>
 
     <ons-list class="options">
@@ -43,8 +43,8 @@
                        ng-repeat="option in ctl_test_select.var.test_select.options"
                        ng-class="
                            {
-                               'correct': ctl_test_select.is_correct_answer($index), 
-                               'incorrect': ctl_test_select.is_incorrect_answer($index), 
+                               'correct': ctl_test_select.is_correct_answer($index),
+                               'incorrect': ctl_test_select.is_incorrect_answer($index),
                            }">
                 <ons-icon icon="ion-ios-circle-outline" fixed-width="true"
                           ng-show="ctl_test_select.is_answered() === false || _test_select.answer !== $index"></ons-icon>
@@ -55,14 +55,17 @@
     </ons-list>
 
     <!-- ===================================== -->
-        
-    <div class="hint">
-        <ons-button  ng-show="ctl_test_select.var.show_note === false">
+
+    <div class="hint" ng-class="{'opened': ctl_test_select.var.show_note !== false}"
+                      ng-show="ctl_test_select.status.showhint === false">
+        <ons-button  ng-show="ctl_test_select.var.show_note === false"
+                     ng-click="ctl_test_select.var.show_note = true">
             {{ "TEST_SELECT_HINT_BUTTON" | translate }}
         </ons-button>
-        <div ng-show="ctl_test_select.var.show_note === true" class="pre">{{ _test_select.note }}</div>
+        <div ng-show="ctl_test_select.var.show_note === true" class="pre bg-info">{{ _test_select.note }}</div>
     </div>
-    
+
+
     <!-- ===================================== -->
 
     <!--
@@ -72,9 +75,15 @@
     -->
 
     <ons-tabbar ng-show="ctl_test_select.is_answered()">
-        <ons-tab label="{{ 'TEST_SELECT_GO_TO_LEARN' | translate }}" icon="ion-ios-browsers-outline" 
-                 ng-show="(ctl_activity.is_test_enough() === true || (ctl_test_select.status.stack.length === 0))"></ons-tab>
-        <ons-tab label="{{ 'TEST_SELECT_NEXT' | translate }}" icon="ion-arrow-down-b"></ons-tab>
+        <ons-tab label="{{ 'TEST_SELECT_GO_TO_LEARN' | translate }}" icon="ion-ios-browsers-outline"
+                 ng-show="(ctl_activity.is_test_enough() === true || (ctl_test_select.status.stack.length === 0))"
+                 ng-click="ctl_learn_flashcard.enter()"></ons-tab>
+        <ons-tab label="{{ 'TEST_SELECT_NEXT' | translate }}" icon="ion-arrow-down-b"
+                 ng-click="ctl_test_select.next(true);"
+                 ></ons-tab>
+                 <!-- <ons-tab label="{{ '單字複習' | translate }}" icon="ion-arrow-down-b"
+                           ng-show="(ctl_activity.is_test_enough() === true)"
+                           ng-click="ctl_learn_flashcard_review.init()"></ons-tab>-->
     </ons-tabbar>
 
 </ons-page>

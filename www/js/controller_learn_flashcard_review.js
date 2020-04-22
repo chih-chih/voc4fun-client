@@ -93,7 +93,9 @@ var controller_learn_flashcard_review = function ($scope) {
          */
         review_card: [],
         showgroup : true,
-        showtime : false
+        showtime : false,
+        note_data:[],
+        note_note:"",
 
     };
     _status.history = [];
@@ -104,8 +106,7 @@ var controller_learn_flashcard_review = function ($scope) {
     _ctl.groupsortobj = _groupsortobj;
     _ctl.timesortobj = _timesortobj;
 
-    // -----------------------------------------
-    var _status_key = "editnote";
+    var _status_key = "note";
     _init_status = function () {
         return $scope.db_status.add_listener(
                 _status_key,
@@ -118,6 +119,9 @@ var controller_learn_flashcard_review = function ($scope) {
                 });
     };
     _init_status();
+
+    // -----------------------------------------
+
 
     _ctl.enter = function () {
         // 讓選單保持在選取的狀態
@@ -171,66 +175,178 @@ var controller_learn_flashcard_review = function ($scope) {
                         _status.review_card = _review_card;
                         _var.learn_flashcard = _status.review_card[0];
                         _status.review_card_index = 1;
-                        app.navi.replacePage("learn_flashcard_review_list.html", {
-                            "animation": "none"
+
+                      app.navi.replacePage("learn_flashcard_review_list.html", {
+                          "animation": "none"
+
                         });
+
                         _ctl.groupsortobj = _ctl.groupsort(_status.review_card);
                         _ctl.timesortobj = _ctl.timesort(_status.review_card);
                         $.trigger_callback(_callback);
                     });
-                    _ctl.other_note_ajax();
+
+                    //_ctl.other_note_ajax();
                     $scope.log(_log_file, "init()", _qualifier, _status);
                   }
               })
     };
 
+
     _ctl.viewcard = function (wordcard) {
         for(var a in _status.review_card){
             if(_status.review_card[a].q == wordcard){
                 _var.learn_flashcard = _status.review_card[a];
+                //_var.learn_flashcard.note = _status.review_card.note;
             }
         }
-        console.log(_var.learn_flashcard);
-      console.log(wordcard);
-      console.log(_status.review_card);
-        app.navi.replacePage("learn_flashcard_review.html", {
-                            "animation": "none"
-                        });
-    }
-    _ctl.editnote = function(){
-  $.get($scope.CONFIG.server_url + 'model/note_all.php',function (_note_data){
-    if(_note_data.q==_var.learn_flashcard){
-      _var.learn_flashcard.note=_note_data.note;
-    }else{
+
+
+        var _flashcard = $scope.ctl_flashcard.find_flashcard(_var.learn_flashcard.q);
+        _var.flashcard_id = _flashcard.id;
+if(_flashcard==wordcard){
+ _flashcard.note = _var.learn_flashcard.note;
+}
+
+
+      /* $.get($scope.CONFIG.server_url + 'model/note_all.php' +'?q='+ _var.learn_flashcard.q + '&uuid=' + $scope.ctl_profile.status.uuid ,function (_note_data) {
+          console.log(_note_data);
+          //var _note_data=[];
+          if(_note_data[0].note==undefined){
+
+            _status.note_note="";
+
+
+          }else{
+
+            _status.note_note = _note_data[0].note;
+            //_self_data.push(_personal_data);
+            //_status.self_data = _self_data;
+
+          }*/
+
+
+//console.log(_status.note_note);
+
+//});
+
+  _ctl.other_note_ajax();
+
+   app.navi.replacePage("learn_flashcard_review.html", {
+      onTransitionEnd: function () {
+          var _textarea = $("#note_html textarea");
+          _ctl._set_auto_grow(_textarea);
+          //alert(_textarea.length);
+          _textarea.focus();
+          _textarea.select();
+      }
+    });
+
 
     }
 
-            app.navi.replacePage("review_note_edit.html", {
-                                "animation": "none"
-                            });
 
-              });
+    _ctl.editnote = function(_index){
 
-    }
+
+      var _flashcard = $scope.ctl_flashcard.find_flashcard(_var.learn_flashcard.q);
+      //_status.note_note=_flashcard.note;
+      //console.log(_flashcard);
+    //  console.log(_flashcard.note);
+      app.navi.pushPage("review_note.html", {
+          onTransitionEnd: function () {
+              _ctl._set_auto_grow($("#review_note.html textarea.review_note"));
+          }
+      });
+
+      return this;
+
+    };
+    _ctl.auto_grow = function ($event) {
+        var _textarea = $($event.target);
+        _ctl._set_auto_grow(_textarea);
+    };
+
+    _ctl._set_auto_grow = function (_textarea) {
+        setTimeout(function () {
+            //_textarea.css("padding", "0");
+            _textarea.css("height", "auto");
+            _textarea.css("height", _textarea.attr("scrollHeight") + "px");
+            //$.console_trace("auto_grow: " + _textarea.attr("scrollHeight"));
+        }, 0);
+    };
+
    _ctl.submit = function($event){
 
-     var _note = $scope.ctl_learn_flashcard_review.var.learn_flashcard.note;
-     _note = $.trim(_note);
+     var _note = $($event.target).parents("ons-page").eq(0).find("textarea.review_note").val();
+     _var.learn_flashcard.note = _note;
 
-     if (_note !== "" && $scope.ctl_learn_flashcard_review.var.learn_flashcard.note !== _note) {
-         _ctl.save_note_to_db(_note);
-
-         if (_note !== "") {
-             _ctl.check_note_edited();
-         }
+     if( _var.learn_flashcard.note !=="" && $scope.ctl_learn_flashcard.var.learn_flashcard.note!==_var.learn_flashcard.note){
+       $scope.ctl_target.done_plus("take_note");
      }
+//        var _data = {
+//            note: _note
+//        };
+//        var _where_sql = "q = " + $scope.DB._escape_value(_var.q);
 
-    app.navi.replacePage("learn_flashcard_review.html", {
-                                  "animation": "none"
-                              });
+     // 儲存到資料庫去
+     //$scope.DB.update("flashcard", _data, _where_sql, function () {
+      /*   $scope.log("controller_note.js", "submit()", _var.learn_flashcard.q, {
+             q: _var.learn_flashcard.q,
+             a: _var.learn_flashcard.a,
+             note: _note
+         });*/
+        $scope.ctl_flashcard.set_note(_ctl.get_current_flashcard_id_note(), _note, function () {
+             $scope.log("controller_note.js", "submit()", _var.learn_flashcard.q, {
+                 q: _var.learn_flashcard.q,
+                 a: _var.learn_flashcard.a,
+                 note: _note
+             });
+             ons.digest();
+console.log(_note);
+
+});
+
+          /*   $.get($scope.CONFIG.server_url + 'model/note_all.php' +'?q='+ _var.learn_flashcard.q + '&uuid=' + $scope.ctl_profile.status.uuid ,function (_note_data) {
+               console.log(_note_data);
+               //var _note_data=[];
+               if(_note_data[0].note==undefined){
+
+                 _status.note_note;
+
+
+               }else{
+
+                 _status.note_note = _note_data[0].note;
+                 //_self_data.push(_personal_data);
+                 //_status.self_data = _self_data;
+
+               }*/
+
+
+          //   console.log(_status.note_note);
+             app.navi.replacePage("learn_flashcard_review.html", {
+                                           "animation": "none"
+
+                                       });
+                //});
+
+         //var _id = _var.flashcard_id;
+         //$scope.ctl_note.check_note_edited(_id);
+
+         //$scope.$digest();
+      //  $scope.db_status.save_status(_status_key);
+
 
 
     }
+
+
+    _ctl.get_current_flashcard_id_note = function () {
+        return _var.flashcard_id;
+        console.log(_var.flashcard_id);
+    };
+
     _ctl.check_note_edited = function (_id) {
         if (_id === undefined) {
             _id = $scope.ctl_learn_flashcard.get_current_flashcard_id();
@@ -241,16 +357,17 @@ var controller_learn_flashcard_review = function ($scope) {
 
             $scope.db_status.save_status(_status_key);
             //$.console_trace(_status.history);
-            $scope.ctl_target.done_plus("take_note");
+            //$scope.ctl_target.done_plus("take_note");
         }
-
+console.log("check_note_edited");
         return this;
     };
 
-    _ctl.save_note_to_db = function (_note) {
+  /*  _ctl.save_note_to_db = function (_note) {
         $scope.ctl_learn_flashcard_review.var.learn_flashcard.note = _note;
+        console.log(_note);
 
-        var _learn_flashcard = _var.learn_flashcard;
+        var _learn_flashcard = $scope.ctl_learn_flashcard.var.learn_flashcard;
         var _q = _learn_flashcard.q;
         $scope.log(_log_file, "submit()", _q, {
             q: _q,
@@ -264,8 +381,9 @@ var controller_learn_flashcard_review = function ($scope) {
         $scope.ctl_flashcard.set_note(_id, _note);
 
         return this;
+        console.log("save_note_to_db");
     };
-
+*/
 
     _ctl.backlist = function (wordcard) {
         app.navi.replacePage("learn_flashcard_review_list.html", {
@@ -546,6 +664,10 @@ var controller_learn_flashcard_review = function ($scope) {
         return _status.history_stack[_status.history_index];
     };
 
+/*_ctl.get_current_flashcard_id = function () {
+    return _var.flashcard_id;
+    console.log(_var.flashcard_id);
+};*/
     // --------------------------------------------------
 
     _ctl.other_note_ajax = function (_callback) {
@@ -613,8 +735,8 @@ var controller_learn_flashcard_review = function ($scope) {
                     // 加入筆記功能中
                     //$.console_trace("抓到自己的資料了", _note);
                     var _flashcard_id = _ctl.get_current_flashcard_id();
-                    $scope.ctl_note.check_note_edited(_flashcard_id);
-                    $scope.ctl_note.save_note_to_db(_note.note);
+                    _ctl.check_note_edited(_flashcard_id);
+                    _ctl.save_note_to_db(_note.note);
                     // take_note加一
                 }
             }

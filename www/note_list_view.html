@@ -27,7 +27,7 @@
 
     <!-- ==================================== -->
 
-    <div class="flashcard" 
+    <div class="flashcard"
          style="margin: 0 1rem; border: 1px solid #DDD; border-radius: 4px; text-align: center;">
         {{ ctl_note_list.var.q}} / {{ ctl_note_list.var.a}}
     </div>
@@ -35,16 +35,16 @@
     <div style="max-height: calc(100% - 140px); overflow-y: auto;">
         <ons-row>
             <!-- @TODO 語系 -->
-            <textarea class="note textarea textarea--transparent" placeholder="壓一下撰寫筆記..." 
+            <textarea class="note textarea textarea--transparent" placeholder="壓一下撰寫筆記..."
                       ng-keyup="ctl_note.auto_grow($event)"
-                      style=" margin:1rem;   padding: 1rem;  border-radius: 4px;border: 1px solid #ddd; 
+                      style=" margin:1rem;   padding: 1rem;  border-radius: 4px;border: 1px solid #ddd;
                       background-color: #f9f9f9; overflow-y: auto;width: 100%;">{{ ctl_note_list.var.note}}</textarea>
         </ons-row>
 
         <ons-list modifier="inset">
-            <ons-list-item 
-                ng-repeat="other_note in ctl_note_list.var.other_note" 
-                ng-click="ctl_note.copy(other_note.note, other_note.uuid)"
+            <ons-list-item
+                ng-repeat="other_note in ctl_note_list.var.other_note"
+                
                 style="cursor: pointer;">
                 <span class="user" style="font-weight: bold;">
                     {{ other_note.name}}:

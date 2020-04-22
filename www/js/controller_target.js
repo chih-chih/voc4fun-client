@@ -698,6 +698,7 @@ var controller_target = function ($scope) {
     _ctl.done_plus = function (_key) {
         //$.console_trace("done_plus", _status);
         if (typeof (_status[_key]) === "object") {
+          if(_status[_key].done<_status[_key].target){
             _status[_key].done++;
             $scope.log(_log_file, "done_plus()", _key, {
                 key: _key,
@@ -707,6 +708,10 @@ var controller_target = function ($scope) {
             $scope.db_status.save_status(_status_key);
 
             _ctl.complete_target(_key);
+          }else{
+            _status[_key].done=_status[_key].target
+          }
+
         }
         return this;
     };
@@ -1058,7 +1063,7 @@ console.log(_recommend_target_data);
           _var.recommend_target_data = _recommend_target_data;
           _var.recommend_target_data.take_note.recommend_target = _recommend_target_data.learn_flashcard.recommend_target;
           _var.recommend_target_data.test_select.recommend_target = _recommend_target_data.learn_flashcard.recommend_target;
-        
+
         // 記錄推薦的目標數字
         $scope.log(_log_file, "_calculate_recommend_target_data()", _recommend_target_data);
 
@@ -1366,7 +1371,8 @@ console.log(_recommend_target_data);
                     return false;
                 }
             }
-            //$.console_trace("is_all_finish true");
+              //$.console_trace("is_all_finish true");
+              console.log(_key);
             return true;
         }
         else {

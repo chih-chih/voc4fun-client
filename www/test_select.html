@@ -66,7 +66,8 @@
 
     <!-- ===================================== -->
 
-    <div class="hint" ng-class="{'opened': ctl_test_select.var.show_note !== false}">
+    <div class="hint" ng-class="{'opened': ctl_test_select.var.show_note !== false}"
+                      ng-show="ctl_test_select.status.showhint === false">
         <ons-button  ng-show="ctl_test_select.var.show_note === false"
                      ng-click="ctl_test_select.var.show_note = true">
             {{ "TEST_SELECT_HINT_BUTTON" | translate }}
@@ -100,10 +101,10 @@
                  ng-click="ctl_learn_flashcard.enter()"></ons-tab>
         <ons-tab label="{{ 'TEST_SELECT_NEXT' | translate }}" icon="ion-arrow-down-b"
                  ng-click="ctl_test_select.next(true);"
-                 ng-hide="(ctl_activity.is_test_enough() === true)""></ons-tab>
-                 <ons-tab label="{{ '單字複習' | translate }}" icon="ion-arrow-down-b"
+                 ></ons-tab>
+                <!-- <ons-tab label="{{ '單字複習' | translate }}" icon="ion-arrow-down-b"
                           ng-show="(ctl_activity.is_test_enough() === true)"
-                          ng-click="ctl_learn_flashcard_review.init()"></ons-tab>
+                          ng-click="ctl_learn_flashcard_review.init()"></ons-tab>-->
     </ons-tabbar>
 
 </ons-page>

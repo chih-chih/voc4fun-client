@@ -119,6 +119,7 @@ var controller_note_list = function ($scope) {
 
     _ctl.get_current_flashcard_id = function () {
         return _var.flashcard_id;
+        console.log(_var.flashcard_id);
     };
 
     // -----------------------------------

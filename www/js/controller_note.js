@@ -12,7 +12,6 @@ var controller_note = function ($scope) {
 //
 //    _ctl.var = _var;
 
-
     // ------------------------------
 
     var _status = {};
@@ -99,6 +98,8 @@ var controller_note = function ($scope) {
 
         app.navi.popPage();
         return this;
+        console.log("submit");
+
     };
 
     _ctl.check_note_edited = function (_id) {
@@ -115,6 +116,7 @@ var controller_note = function ($scope) {
         }
 
         return this;
+        console.log("check_note_edited");
     };
 
     _ctl.save_note_to_db = function (_note) {
@@ -134,6 +136,7 @@ var controller_note = function ($scope) {
         $scope.ctl_flashcard.set_note(_id, _note);
 
         return this;
+        console.log("save_note_to_db");
     };
 
     _ctl.get_noted_count = function () {
