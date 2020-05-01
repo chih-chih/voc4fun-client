@@ -60,9 +60,9 @@ var controller_rank_view = function ($scope) {
     yesterday_uuid:1,
     yesterday_name:1,
     signal_score:0,
-    self_name:1,
-    self_uuid:1,
-    self_score:0,
+    //self_name:1,
+    //self_uuid:1,
+    //self_score:0,
     self_data:[]
   };
 
@@ -92,13 +92,13 @@ var controller_rank_view = function ($scope) {
             console.log(_personal_data);
             var _self_data=[];
             if(_personal_data.uuid==undefined && _personal_data.name==undefined && _personal_data.score==undefined){
-            //  var _self_uuid =0;
-            //  _status.self_uuid=_self_uuid;
+              //var _self_uuid =0;
+              _status.self_uuid=$scope.ctl_profile.status.uuid;
             //  var _self_name =0;
-            //  _status.self_name = _self_name;
-              //var _self_score=0;
+              _status.self_name = $scope.ctl_profile.status.name;
+              var _self_score=0;
               _status.self_score = 0;
-              //_self_data.push(_personal_data);
+              _self_data.push(_personal_data[0]);
               //_status.self_data = _self_data;
 
             }else{
@@ -108,14 +108,15 @@ var controller_rank_view = function ($scope) {
               _status.self_name = _self_name;
               var _self_score= _personal_data[0].score;
               _status.self_score = _self_score;
-              //_self_data.push(_personal_data);
+              _self_data.push(_personal_data[0]);
               //_status.self_data = _self_data;
 
             }
-            _self_data.push(_personal_data);
+            //_self_data.push(_personal_data);
             _status.self_data = _self_data;
 
             console.log(_status.self_data);
+            //console.log(_status.self_data.score);
           var _signal_data=[];
 
             for(var i=0;i<5;i++){
@@ -141,7 +142,7 @@ var controller_rank_view = function ($scope) {
           }
           _status.signal_data = _signal_data;
 
-           console.log(_personal_data);
+
 
            if(_target_data == undefined){
              var _maxtarget=0;

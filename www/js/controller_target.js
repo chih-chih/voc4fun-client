@@ -843,10 +843,12 @@ var controller_target = function ($scope) {
             return $scope.ctl_learn_flashcard.get_learned_count();
         }
         else if (_key === "take_note") {
-            return $scope.ctl_note.get_noted_count();
+            //return $scope.ctl_note.get_noted_count();
+            return $scope.ctl_learn_flashcard.get_learned_count();
         }
         else if (_key === "test_select") {
-            return $scope.ctl_test_select.get_tested_count();
+            //return $scope.ctl_test_select.get_tested_count();
+            return $scope.ctl_learn_flashcard.get_learned_count();
         }
         else {
             return 0;
